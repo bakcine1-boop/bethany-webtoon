@@ -80,6 +80,14 @@ a{color:inherit;text-decoration:none}
 .think i,.think u{position:absolute;background:#fff;border:.28cqw solid #1F2638;border-radius:50%}
 .think i{width:2.4cqw;height:2.4cqw;bottom:-3.2cqw;left:var(--tx,50%)}
 .think u{width:1.5cqw;height:1.5cqw;bottom:-5.4cqw;left:calc(var(--tx,50%) + 1.5cqw)}
+.bub.inner{border-style:dashed;color:#4A5066;font-weight:500;background:rgba(255,255,255,.93)}
+.bub.inner:after{display:none}
+.bub.whisper{font-size:3.3cqw;font-weight:500;color:#3A4156}
+.bub.shout{font-size:4.6cqw;font-weight:800;border-width:.5cqw;border-radius:2.2cqw;background:#FFF9E6;transform:rotate(var(--rot,-2deg))}
+.bub.shout:after{background:#FFF9E6;border-width:.5cqw}
+.sfx{position:absolute;font-weight:900;letter-spacing:-.02em;color:#fff;-webkit-text-stroke:.45cqw #1F2638;paint-order:stroke fill;transform:rotate(var(--rot,-8deg));white-space:nowrap;text-shadow:0 .5cqw 0 rgba(31,38,56,.18)}
+.sfx.gold{color:#F2C94C}
+.nav .h{margin-top:1.4cqw;font-size:3.1cqw;color:#7C7466;font-weight:500}
 .who{display:block;font-size:2.4cqw;font-weight:700;color:#9A7A3E;margin-bottom:.4cqw;letter-spacing:.04em}
 .closing{padding:11cqw 7.4cqw 6.5cqw;text-align:center;font-size:5.56cqw;line-height:1.45;font-weight:800;letter-spacing:-.025em;color:#1F2A44}
 .closing em{font-style:normal;color:#A9802F}
@@ -113,8 +121,9 @@ const ready = n => !!W.episodes[n];
 const lastKey = 'bethany-webtoon-last';
 
 function bubble(b) {
+  if (b.sfx) return `<div class="sfx${b.gold ? ' gold' : ''}" style="left:${(b.x / 1080 * 100).toFixed(2)}%;top:${(b.y / 1350 * 100).toFixed(2)}%;font-size:${((b.fs || 70) / 1080 * 100).toFixed(2)}cqw;${b.rot != null ? `--rot:${b.rot}deg;` : ''}">${b.sfx}</div>`;
   const style = `left:${(b.x / 1080 * 100).toFixed(2)}%;top:${(b.y / 1350 * 100).toFixed(2)}%;${b.tx ? `--tx:${b.tx};` : ''}${b.fs ? `font-size:${(b.fs / 1080 * 100).toFixed(2)}cqw;` : ''}`;
-  return `<div class="bub${b.think ? ' think' : ''}" style="${style}">${b.who ? `<span class="who">${b.who}</span>` : ''}${nl(b.t)}${b.think ? '<i></i><u></u>' : ''}</div>`;
+  return `<div class="bub${b.think ? ' think' : ''}${b.kind ? ' ' + b.kind : ''}" style="${style}${b.rot != null ? `--rot:${b.rot}deg;` : ''}">${b.who ? `<span class="who">${b.who}</span>` : ''}${nl(b.t)}${b.think ? '<i></i><u></u>' : ''}</div>`;
 }
 
 function renderHome() {
@@ -155,7 +164,7 @@ function renderEp(n) {
   const prev = n - 1, next = n + 1;
   h += `<div class="closing">${nl(ep.closing)}</div><div class="nav">`;
   if (prev >= 1 && !CAPTURE) h += ready(prev) ? `<a href="#ep-${prev}"><div class="k">PREV</div><div class="q">제${prev}화</div></a>` : `<span><div class="k">PREV</div><div class="q">제${prev}화</div></span>`;
-  if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"><div class="k">NEXT EPISODE</div><div class="q">제${next}화 · ${W.titles[next]}</div></a>` : `<span><div class="k">NEXT EPISODE · 준비 중</div><div class="q">제${next}화 · ${W.titles[next]}</div></span>`;
+  if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"><div class="k">NEXT EPISODE</div><div class="q">제${next}화 · ${W.titles[next]}</div></a>` : `<span><div class="k">NEXT EPISODE · 준비 중</div><div class="q">제${next}화 · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</span>`;
   h += `</div><a class="toc" href="#">전체 목차 보기</a><div class="efoot"><img src="logo.png" alt="베다니 한인교회"><div class="s">웹툰 「${W.series}」 · 모바일판</div></div>`;
   app.innerHTML = h;
   window.scrollTo(0, 0);

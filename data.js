@@ -39,28 +39,49 @@ window.WEBTOON = {
   episodes: {
     1: {
       closing: '처음의 어색함은,\n함께 걸어갈 때\n<em>익숙한 은혜</em>가 됩니다',
+      hook: '“근데 예배는… 정확히 뭘 하는 거예요?” — 아빠',
       blocks: [
-        { cover: 'ep01_p1.jpg' },
+        { cover: 'ep01_cover.jpg' },
+        { img: 'ep01_car.jpg', bubbles: [
+          { t: '여보…\n벌써 세 바퀴째야.', x: 40, y: 300, tx: '30%', kind: 'whisper' },
+          { t: '입구에서 가장 가까운 자리가\n분명 있을 거야.', x: 470, y: 110, tx: '78%' },
+          { t: '아빠! 저기 빈자리!', x: 330, y: 470, tx: '45%', kind: 'shout', rot: 2 },
+          { sfx: '띠링✦', x: 870, y: 800, fs: 52, gold: 1, rot: -10 }] },
         { narr: '한 새가족이\n처음 <b>베다니 교회</b>에 왔습니다' },
-        { img: 'ep01_p2.jpg', bubbles: [{ t: '조금 떨리네요...', x: 40, y: 250, tx: '30%' }, { t: '여기가\n우리 교회야?', x: 700, y: 300, tx: '55%' }] },
+        { img: 'ep01_door.jpg', bubbles: [
+          { t: '어서 오세요오오~!!', x: 480, y: 40, tx: '60%', kind: 'shout', rot: -3 },
+          { t: '조금 떨리네요…', x: 30, y: 170, tx: '75%', kind: 'whisper' }] },
         { gap: 1 },
-        { img: 'ep01_p3.jpg', bubbles: [{ t: '다들 익숙해 보여...', x: 250, y: 300, tx: '22%' }] },
+        { img: 'ep01_shout.jpg', bubbles: [
+          { t: '여기가 우리 교회야?!', x: 560, y: 470, tx: '55%', kind: 'shout', rot: 3 },
+          { t: '쉿!', x: 250, y: 430, tx: '30%', kind: 'whisper' }] },
         { gap: 1 },
-        { img: 'ep01_p4.jpg', bubbles: [{ t: '언제 앉고\n일어나야 하지?', x: 60, y: 90, tx: '40%' }] },
+        { img: 'ep01_bulletin.jpg', bubbles: [
+          { t: '언제 앉고…\n일어나야 하지?', x: 440, y: 120, tx: '62%' },
+          { t: '(다들 익숙해 보여…)', x: 30, y: 390, kind: 'inner', fs: 36 },
+          { sfx: '띠링✦', x: 850, y: 540, fs: 52, gold: 1, rot: -10 }] },
         { narr: '처음 교회에 오면 반갑지만,\n동시에 <b>낯설고 조심스러운</b>\n마음이 듭니다' },
-        { img: 'ep01_p5.jpg' },
+        { img: 'ep01_hands.jpg', bubbles: [
+          { t: '(정말… 오랜만이다.)', x: 60, y: 90, kind: 'inner', fs: 38 }] },
         { narr: '새가족의 마음에는\n<b>많은 질문</b>이 생깁니다' },
-        { img: 'ep01_p6.jpg', bubbles: [
+        { img: 'ep01_think.jpg', bubbles: [
           { t: '예배는\n무엇인가요?', x: 20, y: 330, think: 1, tx: '40%', fs: 36 },
           { t: '아이들도 함께\n드리나요?', x: 270, y: 150, think: 1, tx: '50%', fs: 36 },
           { t: '왜 순서가\n있나요?', x: 560, y: 330, think: 1, tx: '45%', fs: 36 },
           { t: '처음엔 어떻게\n해야 하나요?', x: 760, y: 130, think: 1, tx: '55%', fs: 36 }] },
         { gap: 1 },
-        { img: 'ep01_p7.jpg', bubbles: [{ t: '처음 오시면 누구나 어색합니다.\n걱정하지 마세요.\n하나씩 설명드릴게요.', who: '목사님', x: 300, y: 150, tx: '85%' }] },
+        { img: 'ep01_pastor.jpg', bubbles: [
+          { t: '저… 근데\n그건 왜 그런 거예요?', x: 40, y: 100, tx: '75%' },
+          { t: '처음 오시면 누구나 어색합니다.\n걱정하지 마세요.\n하나씩 설명드릴게요.', who: '목사님', x: 440, y: 300, tx: '72%' }] },
         { narr: '목사님은 새가족을\n따뜻하게 맞이하며\n<b>함께 걸어갑니다</b>' },
-        { img: 'ep01_p8.jpg' },
+        { img: 'ep01_snack.jpg', bubbles: [
+          { t: '적응은… 하민이가\n제일 빠르네.', x: 20, y: 60, tx: '25%', kind: 'whisper' },
+          { t: '여기요! 저 1등!', x: 600, y: 330, tx: '60%', kind: 'shout', rot: 3 },
+          { t: '(배터리 1%…)', x: 300, y: 300, kind: 'inner', fs: 34 }] },
         { narr: '베다니는 새가족이 예배와 신앙,\n감리교 전통을 천천히 배워 가도록\n<b>돕는 공동체</b>입니다' },
-        { img: 'ep01_p9.jpg' },
+        { img: 'ep01_home.jpg', bubbles: [
+          { t: '아빠, 다음 주에도 와요?', x: 470, y: 90, tx: '20%' },
+          { t: '…알아봐야 할 게\n아직 많으니까.', x: 40, y: 250, tx: '55%' }] },
       ],
     },
   },
