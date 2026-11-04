@@ -2,13 +2,13 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>베다니다움 감리교다움 · 베다니 웹툰</title>
 <meta name="description" content="베다니 한인연합감리교회 웹툰 「베다니다움 감리교다움」 모바일판">
 <meta property="og:title" content="베다니다움 감리교다움 · 베다니 웹툰">
 <meta property="og:description" content="성도님들이 궁금해하실 만한 질문을 쉽고 편안하게 풀어낸 베다니 웹툰">
 <meta property="og:image" content="cover.jpg">
-<meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#F6F1E7">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
@@ -89,6 +89,31 @@ a{color:inherit;text-decoration:none}
 .sfx.gold{color:#F2C94C}
 .nav .h{margin-top:1.4cqw;font-size:3.1cqw;color:#7C7466;font-weight:500}
 .who{display:block;font-size:2.4cqw;font-weight:700;color:#9A7A3E;margin-bottom:.4cqw;letter-spacing:.04em}
+/* 정보 카드 */
+.info{margin:2cqw 6.5cqw 4cqw;background:#fff;border:1px solid #E4DAC4;border-radius:3.5cqw;padding:6cqw 6cqw 5cqw;box-shadow:0 1cqw 3cqw rgba(31,42,68,.06)}
+.info .it{font-size:2.6cqw;font-weight:700;letter-spacing:.24em;color:#A9802F;text-align:center}
+.info .ih{margin-top:1.6cqw;font-size:4.6cqw;font-weight:800;color:#1F2A44;text-align:center;letter-spacing:-.02em;line-height:1.35}
+.flow{margin-top:4.5cqw;position:relative}
+.flow .st{display:flex;gap:3.6cqw;align-items:flex-start;padding:2.6cqw 0;position:relative}
+.flow .st:not(:last-child):before{content:'';position:absolute;left:3.7cqw;top:9.6cqw;bottom:-2.6cqw;width:.35cqw;background:#E8DCC0}
+.flow .n{flex:0 0 7.4cqw;height:7.4cqw;border-radius:50%;background:#1F2A44;color:#fff;font-size:3.4cqw;font-weight:800;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.flow .k{font-size:4.1cqw;font-weight:800;color:#1F2A44;line-height:1.3}
+.flow .d{margin-top:.8cqw;font-size:3.5cqw;line-height:1.55;color:#4A5066}
+.chips2{margin-top:4.5cqw;display:flex;flex-wrap:wrap;gap:2cqw;justify-content:center}
+.chips2 span{font-size:3.5cqw;font-weight:700;color:#1F2A44;background:#F6F1E7;border:1px solid #E4DAC4;border-radius:5cqw;padding:1.6cqw 3.2cqw}
+.chips2 i{font-style:normal;color:#C9A45C;font-weight:800;align-self:center;font-size:3.4cqw}
+.stat{margin-top:3.5cqw;text-align:center}
+.stat .big{font-size:17cqw;font-weight:900;color:#1F2A44;letter-spacing:-.04em;line-height:1}
+.stat .big em{font-style:normal;color:#A9802F}
+.stat .d{margin-top:2.5cqw;font-size:3.8cqw;line-height:1.6;color:#4A5066}
+.sum{margin:6cqw 6.5cqw 0;background:#1F2A44;border-radius:3.5cqw;padding:6cqw 6.5cqw;color:#fff}
+.sum .it{font-size:2.6cqw;font-weight:700;letter-spacing:.24em;color:#E3C47E}
+.sum ol{list-style:none;margin-top:3cqw;counter-reset:s}
+.sum li{counter-increment:s;display:flex;gap:3cqw;font-size:3.9cqw;line-height:1.55;padding:1.6cqw 0;border-top:1px solid rgba(255,255,255,.12)}
+.sum li:first-child{border-top:0}
+.sum li:before{content:counter(s);flex:0 0 auto;font-weight:800;color:#E3C47E}
+.panel.sepia img{filter:sepia(.55) saturate(.8) brightness(1.03)}
+.panel .tag{position:absolute;left:4cqw;top:4cqw;background:rgba(31,42,68,.85);color:#fff;font-size:2.8cqw;font-weight:700;border-radius:2cqw;padding:1.2cqw 2.6cqw;letter-spacing:.05em}
 .closing{padding:11cqw 7.4cqw 6.5cqw;text-align:center;font-size:5.56cqw;line-height:1.45;font-weight:800;letter-spacing:-.025em;color:#1F2A44}
 .closing em{font-style:normal;color:#A9802F}
 .nav{display:flex;gap:2.6cqw;padding:2cqw 7.4cqw 0}
@@ -156,15 +181,19 @@ function renderEp(n) {
   document.title = `제${n}화 ${W.titles[n]} · 베다니 웹툰`;
   let h = `<div class="bar" id="bar"><a class="btn" href="#">← 목차</a><div class="t">제${n}화</div><button class="share" onclick="share(${n})">공유</button></div>`;
   for (const b of ep.blocks) {
-    if (b.cover) h += `<div class="panel cover"><img src="${b.cover}" alt=""><div class="shade"></div><div class="t"><div class="eyebrow">${W.series}</div><div class="epno">제${n}화</div><div class="title">${nl(W.titles[n].replace(/(에 오면) /, '$1\n'))}</div></div></div>`;
-    else if (b.img) h += `<div class="panel"><img src="${b.img}" alt="" loading="lazy">${(b.bubbles || []).map(bubble).join('')}</div>`;
+    if (b.cover) h += `<div class="panel cover"><img src="${b.cover}" alt=""><div class="shade"></div><div class="t"><div class="eyebrow">${W.series}</div><div class="epno">제${n}화</div><div class="title">${nl(ep.coverTitle || W.titles[n])}</div></div></div>`;
+    else if (b.img) h += `<div class="panel${b.sepia ? ' sepia' : ''}"><img src="${b.img}" alt="" loading="lazy">${b.tag ? `<div class="tag">${b.tag}</div>` : ''}${(b.bubbles || []).map(bubble).join('')}</div>`;
     else if (b.narr) h += `<div class="narr"><div class="bl"></div>${nl(b.narr)}</div>`;
     else if (b.gap) h += `<div class="gap"></div>`;
+    else if (b.flow) h += `<div class="info"><div class="it">${b.flow.label || '한눈에 보기'}</div><div class="ih">${nl(b.flow.title)}</div><div class="flow">${b.flow.steps.map((s, i) => `<div class="st"><div class="n">${i + 1}</div><div><div class="k">${s.k}</div>${s.d ? `<div class="d">${nl(s.d)}</div>` : ''}</div></div>`).join('')}</div></div>`;
+    else if (b.chips) h += `<div class="info"><div class="it">${b.chips.label || '한눈에 보기'}</div><div class="ih">${nl(b.chips.title)}</div><div class="chips2">${b.chips.items.map(t => `<span>${t}</span>`).join('<i>›</i>')}</div></div>`;
+    else if (b.stat) h += `<div class="info"><div class="it">${b.stat.label || '기억하기'}</div><div class="stat"><div class="big">${b.stat.big}</div><div class="d">${nl(b.stat.d)}</div></div></div>`;
   }
+  if (ep.summary) h += `<div class="sum"><div class="it">오늘의 정리</div><ol>${ep.summary.map(s => `<li><span>${s}</span></li>`).join('')}</ol></div>`;
   const prev = n - 1, next = n + 1;
   h += `<div class="closing">${nl(ep.closing)}</div><div class="nav">`;
   if (prev >= 1 && !CAPTURE) h += ready(prev) ? `<a href="#ep-${prev}"><div class="k">PREV</div><div class="q">제${prev}화</div></a>` : `<span><div class="k">PREV</div><div class="q">제${prev}화</div></span>`;
-  if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"><div class="k">NEXT EPISODE</div><div class="q">제${next}화 · ${W.titles[next]}</div></a>` : `<span><div class="k">NEXT EPISODE · 준비 중</div><div class="q">제${next}화 · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</span>`;
+  if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"><div class="k">NEXT EPISODE</div><div class="q">제${next}화 · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</a>` : `<span><div class="k">NEXT EPISODE · 준비 중</div><div class="q">제${next}화 · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</span>`;
   h += `</div><a class="toc" href="#">전체 목차 보기</a><div class="efoot"><img src="logo.png" alt="베다니 한인교회"><div class="s">웹툰 「${W.series}」 · 모바일판</div></div>`;
   app.innerHTML = h;
   window.scrollTo(0, 0);
