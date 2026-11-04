@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>베다니다움 감리교다움 · 베다니 웹툰</title>
+<meta name="description" content="베다니 한인연합감리교회 웹툰 「베다니다움 감리교다움」 모바일판">
+<meta property="og:title" content="베다니다움 감리교다움 · 베다니 웹툰">
+<meta property="og:description" content="성도님들이 궁금해하실 만한 질문을 쉽고 편안하게 풀어낸 베다니 웹툰">
+<meta property="og:image" content="cover.jpg">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#F6F1E7">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#ECE5D6}
+body{font-family:'Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;color:#1F2638;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;word-break:keep-all;overflow-wrap:break-word}
+a{color:inherit;text-decoration:none}
+.app{max-width:600px;margin:0 auto;background:#F6F1E7;min-height:100vh;position:relative}
+.wrap{container-type:inline-size}
+/* 상단바 */
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 14px;background:rgba(246,241,231,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #E4DAC4;transition:transform .25s}
+.bar.hide{transform:translateY(-100%)}
+.bar .t{font-size:15px;font-weight:700;color:#1F2A44;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%}
+.bar button,.bar a.btn{background:none;border:0;font:inherit;font-size:14px;font-weight:600;color:#6B6252;padding:8px 6px;cursor:pointer}
+/* 홈 */
+.hero{position:relative}
+.hero img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(246,241,231,.94) 0%,rgba(246,241,231,.6) 30%,rgba(246,241,231,0) 50%,rgba(246,241,231,0) 78%,#F6F1E7 100%)}
+.hero .tx{position:absolute;left:0;right:0;top:9%;text-align:center;padding:0 20px}
+.hero .ey{font-size:13px;font-weight:600;letter-spacing:.3em;color:#9A7A3E}
+.hero h1{margin-top:14px;font-size:clamp(30px,9cqw,46px);font-weight:800;letter-spacing:-.03em;color:#1F2A44;line-height:1.2}
+.hero p{margin-top:14px;font-size:15px;line-height:1.6;color:#3A4156;white-space:pre-line}
+.cta{display:flex;gap:10px;padding:4px 20px 8px}
+.cta a{flex:1;text-align:center;padding:15px 10px;border-radius:14px;font-size:16px;font-weight:700}
+.cta .p{background:#1F2A44;color:#fff}
+.cta .s{background:#fff;border:1.5px solid #D9C9A3;color:#1F2A44}
+.sec{padding:34px 20px 8px}
+.sec h2{font-size:19px;font-weight:800;letter-spacing:-.02em;color:#1F2A44}
+.sec .sub{margin-top:4px;font-size:13.5px;color:#7C7466}
+.chips{display:flex;gap:10px;overflow-x:auto;padding:14px 20px 6px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 150px;scroll-snap-align:start;background:#fff;border:1px solid #E4DAC4;border-radius:16px;padding:14px;min-height:112px;display:flex;flex-direction:column;justify-content:space-between}
+.chip .n{font-size:12px;font-weight:700;color:#A9802F;letter-spacing:.06em}
+.chip .q{margin-top:6px;font-size:14.5px;font-weight:600;line-height:1.4;color:#1F2A44}
+.chip.off{opacity:.55}
+.part{margin:14px 20px 0;background:#fff;border:1px solid #E4DAC4;border-radius:16px;overflow:hidden}
+.part summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;gap:12px}
+.part summary::-webkit-details-marker{display:none}
+.part .pn{flex:0 0 auto;font-size:12px;font-weight:800;color:#fff;background:#C9A45C;border-radius:8px;padding:4px 8px}
+.part .pt{flex:1;font-size:15.5px;font-weight:700;color:#1F2A44;line-height:1.35}
+.part .cnt{font-size:12.5px;color:#9A917F}
+.part[open] summary{border-bottom:1px solid #EFE7D6}
+.ep-row{display:flex;align-items:center;gap:12px;padding:13px 18px;border-top:1px solid #F3EDE0}
+.ep-row:first-of-type{border-top:0}
+.ep-row .no{flex:0 0 44px;font-size:13px;font-weight:700;color:#A9802F}
+.ep-row .q{flex:1;font-size:14.5px;line-height:1.4;color:#1F2A44}
+.ep-row .tag{font-size:11.5px;color:#9A917F;white-space:nowrap}
+.ep-row .tag.new{color:#fff;background:#1F2A44;border-radius:6px;padding:3px 7px;font-weight:700}
+.ep-row.off .q{color:#9A917F}
+.home-foot{padding:44px 20px 60px;text-align:center}
+.home-foot img{width:210px;mix-blend-mode:multiply;opacity:.9}
+.home-foot p{margin-top:10px;font-size:12px;color:#9A917F}
+/* 에피소드 (모든 크기는 화면 폭 기준 cqw) */
+.panel{position:relative;width:100%;aspect-ratio:1080/1350;overflow:hidden;container-type:inline-size}
+.panel img{display:block;width:100%;height:100%;object-fit:cover}
+.gap{height:6.48cqw}
+.cover .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(246,241,231,.92) 0%,rgba(246,241,231,.55) 30%,rgba(246,241,231,0) 48%)}
+.cover .t{position:absolute;left:0;right:0;top:11.1cqw;text-align:center}
+.cover .eyebrow{font-size:3.15cqw;font-weight:600;letter-spacing:.32em;color:#9A7A3E}
+.cover .epno{display:inline-block;margin-top:3.1cqw;font-size:2.8cqw;font-weight:700;letter-spacing:.2em;color:#fff;background:#1F2A44;border-radius:4cqw;padding:1.1cqw 2.8cqw}
+.cover .title{margin-top:3.3cqw;font-size:6.67cqw;line-height:1.32;font-weight:800;letter-spacing:-.02em;color:#1F2A44}
+.narr{padding:10.2cqw 8.9cqw;text-align:center;font-size:4.26cqw;line-height:1.62;font-weight:500;letter-spacing:-.01em;color:#2A3146}
+.narr b{font-weight:700;color:#1F2A44;background:linear-gradient(transparent 62%,#EBD9A8 62%)}
+.narr .bl{width:5.2cqw;height:.37cqw;background:#C9A45C;margin:0 auto 4.3cqw;border-radius:2px}
+.bub{position:absolute;background:#fff;border:.28cqw solid #1F2638;border-radius:4.3cqw;padding:2.2cqw 3.5cqw;font-size:3.89cqw;line-height:1.42;font-weight:600;letter-spacing:-.02em;text-align:center;white-space:nowrap;box-shadow:0 .55cqw 0 rgba(31,38,56,.12)}
+.bub:after{content:'';position:absolute;width:2.8cqw;height:2.8cqw;background:#fff;border-right:.28cqw solid #1F2638;border-bottom:.28cqw solid #1F2638;bottom:-1.6cqw;left:var(--tx,50%);transform:translateX(-50%) rotate(45deg)}
+.think{border-radius:5.6cqw}
+.think:after{display:none}
+.think i,.think u{position:absolute;background:#fff;border:.28cqw solid #1F2638;border-radius:50%}
+.think i{width:2.4cqw;height:2.4cqw;bottom:-3.2cqw;left:var(--tx,50%)}
+.think u{width:1.5cqw;height:1.5cqw;bottom:-5.4cqw;left:calc(var(--tx,50%) + 1.5cqw)}
+.who{display:block;font-size:2.4cqw;font-weight:700;color:#9A7A3E;margin-bottom:.4cqw;letter-spacing:.04em}
+.closing{padding:11cqw 7.4cqw 6.5cqw;text-align:center;font-size:5.56cqw;line-height:1.45;font-weight:800;letter-spacing:-.025em;color:#1F2A44}
+.closing em{font-style:normal;color:#A9802F}
+.nav{display:flex;gap:2.6cqw;padding:2cqw 7.4cqw 0}
+.nav a,.nav span{flex:1;display:block;border:2px solid #D9C9A3;border-radius:2.6cqw;padding:4cqw 3cqw;text-align:center;background:#FBF8F1}
+.nav .k{font-size:2.6cqw;font-weight:700;letter-spacing:.2em;color:#A9802F}
+.nav .q{margin-top:1.3cqw;font-size:3.9cqw;font-weight:700;color:#1F2A44;line-height:1.35}
+.nav span{opacity:.6}
+.nav span .q{color:#7C7466}
+.toc{display:block;margin:4cqw 7.4cqw 0;text-align:center;padding:3.6cqw;border-radius:2.6cqw;background:#1F2A44;color:#fff;font-size:3.9cqw;font-weight:700}
+.efoot{padding:8.3cqw 0 10cqw;text-align:center}
+.efoot img{width:38.9cqw;mix-blend-mode:multiply;opacity:.92}
+.efoot .s{margin-top:2cqw;font-size:2.2cqw;color:#8A8577}
+/* 캡처 모드(카톡용 긴 이미지) */
+.capture html,.capture{background:#F6F1E7}
+.capture .app{max-width:none}
+.capture .bar,.capture .toc,.capture .share{display:none}
+</style>
+</head>
+<body>
+<div class="app wrap" id="app"></div>
+<script src="data.js"></script>
+<script>
+const W = window.WEBTOON;
+const CAPTURE = new URLSearchParams(location.search).has('capture');
+if (CAPTURE) document.documentElement.classList.add('capture');
+const app = document.getElementById('app');
+const nl = s => s.replace(/\n/g, '<br>');
+const pad = n => String(n).padStart(2, '0');
+const ready = n => !!W.episodes[n];
+const lastKey = 'bethany-webtoon-last';
+
+function bubble(b) {
+  const style = `left:${(b.x / 1080 * 100).toFixed(2)}%;top:${(b.y / 1350 * 100).toFixed(2)}%;${b.tx ? `--tx:${b.tx};` : ''}${b.fs ? `font-size:${(b.fs / 1080 * 100).toFixed(2)}cqw;` : ''}`;
+  return `<div class="bub${b.think ? ' think' : ''}" style="${style}">${b.who ? `<span class="who">${b.who}</span>` : ''}${nl(b.t)}${b.think ? '<i></i><u></u>' : ''}</div>`;
+}
+
+function renderHome() {
+  document.title = '베다니다움 감리교다움 · 베다니 웹툰';
+  const last = +localStorage.getItem(lastKey) || 0;
+  const firstReady = Object.keys(W.episodes).map(Number).sort((a, b) => a - b)[0];
+  let h = `<div class="hero"><img src="cover.jpg" alt=""><div class="shade"></div>
+    <div class="tx"><div class="ey">BETHANY WEBTOON</div><h1>${W.series}</h1><p>${W.intro}</p></div></div>
+    <div class="cta"><a class="p" href="#ep-${firstReady}">1화부터 보기</a>${last && ready(last) ? `<a class="s" href="#ep-${last}">이어 보기 · ${last}화</a>` : ''}</div>
+    <div class="sec"><h2>처음 오셨다면, 이것부터</h2><div class="sub">새가족이 가장 먼저 궁금해하는 10편</div></div>
+    <div class="chips">${W.starter.map(n => ready(n)
+      ? `<a class="chip" href="#ep-${n}"><div class="n">제${n}화</div><div class="q">${W.titles[n]}</div></a>`
+      : `<div class="chip off"><div class="n">제${n}화 · 준비 중</div><div class="q">${W.titles[n]}</div></div>`).join('')}</div>
+    <div class="sec"><h2>전체 목차</h2><div class="sub">8부 · 63화</div></div>`;
+  W.parts.forEach((p, i) => {
+    h += `<details class="part"${i === 0 ? ' open' : ''}><summary><span class="pn">${p.name}</span><span class="pt">${p.title}</span><span class="cnt">${p.eps.length}화</span></summary>
+      ${p.eps.map(n => ready(n)
+        ? `<a class="ep-row" href="#ep-${n}"><span class="no">${n}화</span><span class="q">${W.titles[n]}</span><span class="tag new">보기</span></a>`
+        : `<div class="ep-row off"><span class="no">${n}화</span><span class="q">${W.titles[n]}</span><span class="tag">준비 중</span></div>`).join('')}</details>`;
+  });
+  h += `<div class="home-foot"><img src="logo.png" alt="베다니 한인교회"><p>웹툰 「베다니다움 감리교다움」 · 원작 『베다니다움, 감리교다움』</p></div>`;
+  app.innerHTML = h;
+  window.scrollTo(0, 0);
+}
+
+function renderEp(n) {
+  const ep = W.episodes[n];
+  if (!ep) { location.hash = ''; return; }
+  localStorage.setItem(lastKey, n);
+  document.title = `제${n}화 ${W.titles[n]} · 베다니 웹툰`;
+  let h = `<div class="bar" id="bar"><a class="btn" href="#">← 목차</a><div class="t">제${n}화</div><button class="share" onclick="share(${n})">공유</button></div>`;
+  for (const b of ep.blocks) {
+    if (b.cover) h += `<div class="panel cover"><img src="${b.cover}" alt=""><div class="shade"></div><div class="t"><div class="eyebrow">${W.series}</div><div class="epno">제${n}화</div><div class="title">${nl(W.titles[n].replace(/(에 오면) /, '$1\n'))}</div></div></div>`;
+    else if (b.img) h += `<div class="panel"><img src="${b.img}" alt="" loading="lazy">${(b.bubbles || []).map(bubble).join('')}</div>`;
+    else if (b.narr) h += `<div class="narr"><div class="bl"></div>${nl(b.narr)}</div>`;
+    else if (b.gap) h += `<div class="gap"></div>`;
+  }
+  const prev = n - 1, next = n + 1;
+  h += `<div class="closing">${nl(ep.closing)}</div><div class="nav">`;
+  if (prev >= 1 && !CAPTURE) h += ready(prev) ? `<a href="#ep-${prev}"><div class="k">PREV</div><div class="q">제${prev}화</div></a>` : `<span><div class="k">PREV</div><div class="q">제${prev}화</div></span>`;
+  if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"><div class="k">NEXT EPISODE</div><div class="q">제${next}화 · ${W.titles[next]}</div></a>` : `<span><div class="k">NEXT EPISODE · 준비 중</div><div class="q">제${next}화 · ${W.titles[next]}</div></span>`;
+  h += `</div><a class="toc" href="#">전체 목차 보기</a><div class="efoot"><img src="logo.png" alt="베다니 한인교회"><div class="s">웹툰 「${W.series}」 · 모바일판</div></div>`;
+  app.innerHTML = h;
+  window.scrollTo(0, 0);
+  let lastY = 0; const bar = document.getElementById('bar');
+  window.onscroll = () => { const y = window.scrollY; if (bar) bar.classList.toggle('hide', y > lastY && y > 120); lastY = y; };
+}
+
+async function share(n) {
+  const url = location.href.split('#')[0] + '#ep-' + n;
+  const data = { title: `베다니 웹툰 제${n}화`, text: W.titles[n], url };
+  try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(url); alert('링크를 복사했어요'); } } catch (e) {}
+}
+
+function route() {
+  window.onscroll = null;
+  const m = location.hash.match(/^#ep-(\d+)/);
+  if (m) renderEp(+m[1]); else renderHome();
+}
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
