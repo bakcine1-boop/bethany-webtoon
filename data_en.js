@@ -4,7 +4,7 @@ window.WEBTOON_EN = {
   series: "Bethany Way, Methodist Way",
   intro: "Everyday questions about church,\nanswered in a friendly webtoon\nfrom Bethany.",
   ui: {
-    start: "Start from Episode 1", cont: n => `Continue · Ep. ${n}`,
+    start: "Start with Ep. 1", cont: n => `Continue · Ep. ${n}`,
     starterH: "New here? Start with these", starterSub: "10 questions newcomers ask first",
     tocH: "All Episodes", tocSub: "8 Parts · 63 Episodes", cnt: n => `${n} eps`,
     read: "Read", soon: "Coming soon", ep: n => `Episode ${n}`, epShort: n => `Ep. ${n}`,
