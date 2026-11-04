@@ -2,7 +2,7 @@
 // blocks[] align 1:1 with the Korean blocks. null = no text to change.
 window.WEBTOON_EN = {
   series: "Bethany Way, Methodist Way",
-  intro: "Everyday questions church members often wonder about,\nanswered in a friendly webtoon from Bethany.",
+  intro: "Everyday questions about church,\nanswered in a friendly webtoon\nfrom Bethany.",
   ui: {
     start: "Start from Episode 1", cont: n => `Continue · Ep. ${n}`,
     starterH: "New here? Start with these", starterSub: "10 questions newcomers ask first",
