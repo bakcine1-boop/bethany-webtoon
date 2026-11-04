@@ -130,20 +130,58 @@ a{color:inherit;text-decoration:none}
 .capture html,.capture{background:#F6F1E7}
 .capture .app{max-width:none}
 .capture .bar,.capture .toc,.capture .share{display:none}
+.lang{position:absolute;top:14px;right:14px;z-index:3;background:rgba(255,255,255,.88);border:1px solid #D9C9A3;border-radius:999px;padding:7px 13px;font:inherit;font-size:13px;font-weight:700;color:#1F2A44;cursor:pointer;letter-spacing:.02em}
+.bar .rt{display:flex;align-items:center;gap:4px}
+.bar .lg{border:1px solid #D9C9A3 !important;border-radius:999px;padding:5px 10px !important;font-size:12.5px !important;color:#1F2A44 !important}
+html[lang=en] .bub{letter-spacing:-.01em}
+html[lang=en] .narr{letter-spacing:0}
+.capture .lang,.capture .lg{display:none}
+html.capture{scrollbar-width:none}
+html.capture::-webkit-scrollbar,.capture ::-webkit-scrollbar{display:none;width:0}
 </style>
 </head>
 <body>
 <div class="app wrap" id="app"></div>
 <script src="data.js"></script>
+<script src="data_en.js"></script>
 <script>
-const W = window.WEBTOON;
-const CAPTURE = new URLSearchParams(location.search).has('capture');
+const K = window.WEBTOON, EN = window.WEBTOON_EN;
+const QS = new URLSearchParams(location.search);
+const CAPTURE = QS.has('capture');
 if (CAPTURE) document.documentElement.classList.add('capture');
+const langKey = 'bethany-webtoon-lang';
+let LANG = QS.get('lang') || localStorage.getItem(langKey) || 'ko';
+if (LANG !== 'en') LANG = 'ko';
 const app = document.getElementById('app');
 const nl = s => s.replace(/\n/g, '<br>');
-const pad = n => String(n).padStart(2, '0');
-const ready = n => !!W.episodes[n];
 const lastKey = 'bethany-webtoon-last';
+const UI_KO = { start: '1화부터 보기', cont: n => `이어 보기 · ${n}화`, starterH: '처음 오셨다면, 이것부터', starterSub: '새가족이 가장 먼저 궁금해하는 10편',
+  tocH: '전체 목차', tocSub: '8부 · 63화', cnt: n => `${n}화`, read: '보기', soon: '준비 중', ep: n => `제${n}화`, epShort: n => `${n}화`,
+  back: '← 목차', share: '공유', copied: '링크를 복사했어요', sum: '오늘의 정리', prev: 'PREV', next: 'NEXT EPISODE', nextSoon: 'NEXT EPISODE · 준비 중', toc: '전체 목차 보기',
+  foot: `웹툰 「${K.series}」 · 모바일판`, homeFoot: '웹툰 「베다니다움 감리교다움」 · 원작 『베다니다움, 감리교다움』', flow: '한눈에 보기', stat: '기억하기', siteTitle: '베다니다움 감리교다움 · 베다니 웹툰' };
+let W, U;
+function buildLang() {
+  document.documentElement.lang = LANG;
+  if (LANG !== 'en') { W = K; U = UI_KO; return; }
+  U = EN.ui;
+  const eps = {};
+  for (const n in K.episodes) {
+    const k = K.episodes[n], e = EN.episodes[n];
+    if (!e) continue;
+    eps[n] = { ...k, coverTitle: e.coverTitle, closing: e.closing, hook: e.hook, summary: e.summary,
+      blocks: k.blocks.map((b, i) => {
+        const o = e.blocks[i]; if (!o) return b;
+        const m = { ...b };
+        if (o.bubbles) m.bubbles = (b.bubbles || []).map((x, j) => ({ ...x, ...(o.bubbles[j] || {}), who: x.who ? (o.bubbles[j] && o.bubbles[j].who) || x.who : undefined }));
+        for (const f of ['narr', 'flow', 'chips', 'stat', 'tag']) if (o[f]) m[f] = o[f];
+        return m;
+      }) };
+  }
+  W = { ...K, series: EN.series, intro: EN.intro, titles: EN.titles, parts: K.parts.map((p, i) => ({ ...p, ...EN.parts[i] })), episodes: eps };
+}
+const ready = n => !!W.episodes[n];
+function toggleLang() { LANG = LANG === 'en' ? 'ko' : 'en'; localStorage.setItem(langKey, LANG); if (QS.has('lang')) { QS.delete('lang'); history.replaceState(null, '', location.pathname + (QS.toString() ? '?' + QS : '') + location.hash); } buildLang(); route(); }
+const langBtnLabel = () => LANG === 'en' ? '한국어' : 'English';
 
 function bubble(b) {
   if (b.sfx) return `<div class="sfx${b.gold ? ' gold' : ''}" style="left:${(b.x / 1080 * 100).toFixed(2)}%;top:${(b.y / 1350 * 100).toFixed(2)}%;font-size:${((b.fs || 70) / 1080 * 100).toFixed(2)}cqw;${b.rot != null ? `--rot:${b.rot}deg;` : ''}">${b.sfx}</div>`;
@@ -152,24 +190,24 @@ function bubble(b) {
 }
 
 function renderHome() {
-  document.title = '베다니다움 감리교다움 · 베다니 웹툰';
+  document.title = U.siteTitle;
   const last = +localStorage.getItem(lastKey) || 0;
   const firstReady = Object.keys(W.episodes).map(Number).sort((a, b) => a - b)[0];
-  let h = `<div class="hero"><img src="cover.jpg" alt=""><div class="shade"></div>
+  let h = `<div class="hero"><img src="cover.jpg" alt=""><div class="shade"></div><button class="lang" onclick="toggleLang()">${langBtnLabel()}</button>
     <div class="tx"><div class="ey">BETHANY WEBTOON</div><h1>${W.series}</h1><p>${W.intro}</p></div></div>
-    <div class="cta"><a class="p" href="#ep-${firstReady}">1화부터 보기</a>${last && ready(last) ? `<a class="s" href="#ep-${last}">이어 보기 · ${last}화</a>` : ''}</div>
-    <div class="sec"><h2>처음 오셨다면, 이것부터</h2><div class="sub">새가족이 가장 먼저 궁금해하는 10편</div></div>
+    <div class="cta"><a class="p" href="#ep-${firstReady}">${U.start}</a>${last && ready(last) ? `<a class="s" href="#ep-${last}">${U.cont(last)}</a>` : ''}</div>
+    <div class="sec"><h2>${U.starterH}</h2><div class="sub">${U.starterSub}</div></div>
     <div class="chips">${W.starter.map(n => ready(n)
-      ? `<a class="chip" href="#ep-${n}"><div class="n">제${n}화</div><div class="q">${W.titles[n]}</div></a>`
-      : `<div class="chip off"><div class="n">제${n}화 · 준비 중</div><div class="q">${W.titles[n]}</div></div>`).join('')}</div>
-    <div class="sec"><h2>전체 목차</h2><div class="sub">8부 · 63화</div></div>`;
+      ? `<a class="chip" href="#ep-${n}"><div class="n">${U.ep(n)}</div><div class="q">${W.titles[n]}</div></a>`
+      : `<div class="chip off"><div class="n">${U.ep(n)} · ${U.soon}</div><div class="q">${W.titles[n]}</div></div>`).join('')}</div>
+    <div class="sec"><h2>${U.tocH}</h2><div class="sub">${U.tocSub}</div></div>`;
   W.parts.forEach((p, i) => {
-    h += `<details class="part"${i === 0 ? ' open' : ''}><summary><span class="pn">${p.name}</span><span class="pt">${p.title}</span><span class="cnt">${p.eps.length}화</span></summary>
+    h += `<details class="part"${i === 0 ? ' open' : ''}><summary><span class="pn">${p.name}</span><span class="pt">${p.title}</span><span class="cnt">${U.cnt(p.eps.length)}</span></summary>
       ${p.eps.map(n => ready(n)
-        ? `<a class="ep-row" href="#ep-${n}"><span class="no">${n}화</span><span class="q">${W.titles[n]}</span><span class="tag new">보기</span></a>`
-        : `<div class="ep-row off"><span class="no">${n}화</span><span class="q">${W.titles[n]}</span><span class="tag">준비 중</span></div>`).join('')}</details>`;
+        ? `<a class="ep-row" href="#ep-${n}"><span class="no">${U.epShort(n)}</span><span class="q">${W.titles[n]}</span><span class="tag new">${U.read}</span></a>`
+        : `<div class="ep-row off"><span class="no">${U.epShort(n)}</span><span class="q">${W.titles[n]}</span><span class="tag">${U.soon}</span></div>`).join('')}</details>`;
   });
-  h += `<div class="home-foot"><img src="logo.png" alt="베다니 한인교회"><p>웹툰 「베다니다움 감리교다움」 · 원작 『베다니다움, 감리교다움』</p></div>`;
+  h += `<div class="home-foot"><img src="logo.png" alt="Bethany Korean United Methodist Church"><p>${U.homeFoot}</p></div>`;
   app.innerHTML = h;
   window.scrollTo(0, 0);
 }
@@ -178,23 +216,23 @@ function renderEp(n) {
   const ep = W.episodes[n];
   if (!ep) { location.hash = ''; return; }
   localStorage.setItem(lastKey, n);
-  document.title = `제${n}화 ${W.titles[n]} · 베다니 웹툰`;
-  let h = `<div class="bar" id="bar"><a class="btn" href="#">← 목차</a><div class="t">제${n}화</div><button class="share" onclick="share(${n})">공유</button></div>`;
+  document.title = `${U.ep(n)} ${W.titles[n]} · ${LANG === 'en' ? 'Bethany Webtoon' : '베다니 웹툰'}`;
+  let h = `<div class="bar" id="bar"><a class="btn" href="#">${U.back}</a><div class="t">${U.ep(n)}</div><div class="rt"><button class="lg" onclick="toggleLang()">${LANG === 'en' ? '한' : 'EN'}</button><button class="share" onclick="share(${n})">${U.share}</button></div></div>`;
   for (const b of ep.blocks) {
-    if (b.cover) h += `<div class="panel cover"><img src="${b.cover}" alt=""><div class="shade"></div><div class="t"><div class="eyebrow">${W.series}</div><div class="epno">제${n}화</div><div class="title">${nl(ep.coverTitle || W.titles[n])}</div></div></div>`;
+    if (b.cover) h += `<div class="panel cover"><img src="${b.cover}" alt=""><div class="shade"></div><div class="t"><div class="eyebrow">${W.series}</div><div class="epno">${U.ep(n)}</div><div class="title">${nl(ep.coverTitle || W.titles[n])}</div></div></div>`;
     else if (b.img) h += `<div class="panel${b.sepia ? ' sepia' : ''}"><img src="${b.img}" alt="" loading="lazy">${b.tag ? `<div class="tag">${b.tag}</div>` : ''}${(b.bubbles || []).map(bubble).join('')}</div>`;
     else if (b.narr) h += `<div class="narr"><div class="bl"></div>${nl(b.narr)}</div>`;
     else if (b.gap) h += `<div class="gap"></div>`;
-    else if (b.flow) h += `<div class="info"><div class="it">${b.flow.label || '한눈에 보기'}</div><div class="ih">${nl(b.flow.title)}</div><div class="flow">${b.flow.steps.map((s, i) => `<div class="st"><div class="n">${i + 1}</div><div><div class="k">${s.k}</div>${s.d ? `<div class="d">${nl(s.d)}</div>` : ''}</div></div>`).join('')}</div></div>`;
-    else if (b.chips) h += `<div class="info"><div class="it">${b.chips.label || '한눈에 보기'}</div><div class="ih">${nl(b.chips.title)}</div><div class="chips2">${b.chips.items.map(t => `<span>${t}</span>`).join('<i>›</i>')}</div></div>`;
-    else if (b.stat) h += `<div class="info"><div class="it">${b.stat.label || '기억하기'}</div><div class="stat"><div class="big">${b.stat.big}</div><div class="d">${nl(b.stat.d)}</div></div></div>`;
+    else if (b.flow) h += `<div class="info"><div class="it">${b.flow.label || U.flow}</div><div class="ih">${nl(b.flow.title)}</div><div class="flow">${b.flow.steps.map((s, i) => `<div class="st"><div class="n">${i + 1}</div><div><div class="k">${s.k}</div>${s.d ? `<div class="d">${nl(s.d)}</div>` : ''}</div></div>`).join('')}</div></div>`;
+    else if (b.chips) h += `<div class="info"><div class="it">${b.chips.label || U.flow}</div><div class="ih">${nl(b.chips.title)}</div><div class="chips2">${b.chips.items.map(t => `<span>${t}</span>`).join('<i>›</i>')}</div></div>`;
+    else if (b.stat) h += `<div class="info"><div class="it">${b.stat.label || U.stat}</div><div class="stat"><div class="big">${b.stat.big}</div><div class="d">${nl(b.stat.d)}</div></div></div>`;
   }
-  if (ep.summary) h += `<div class="sum"><div class="it">오늘의 정리</div><ol>${ep.summary.map(s => `<li><span>${s}</span></li>`).join('')}</ol></div>`;
+  if (ep.summary) h += `<div class="sum"><div class="it">${U.sum}</div><ol>${ep.summary.map(s => `<li><span>${s}</span></li>`).join('')}</ol></div>`;
   const prev = n - 1, next = n + 1;
   h += `<div class="closing">${nl(ep.closing)}</div><div class="nav">`;
-  if (prev >= 1 && !CAPTURE) h += ready(prev) ? `<a href="#ep-${prev}"><div class="k">PREV</div><div class="q">제${prev}화</div></a>` : `<span><div class="k">PREV</div><div class="q">제${prev}화</div></span>`;
-  if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"><div class="k">NEXT EPISODE</div><div class="q">제${next}화 · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</a>` : `<span><div class="k">NEXT EPISODE · 준비 중</div><div class="q">제${next}화 · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</span>`;
-  h += `</div><a class="toc" href="#">전체 목차 보기</a><div class="efoot"><img src="logo.png" alt="베다니 한인교회"><div class="s">웹툰 「${W.series}」 · 모바일판</div></div>`;
+  if (prev >= 1 && !CAPTURE) h += ready(prev) ? `<a href="#ep-${prev}"><div class="k">${U.prev}</div><div class="q">${U.ep(prev)}</div></a>` : `<span><div class="k">${U.prev}</div><div class="q">${U.ep(prev)}</div></span>`;
+  if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"><div class="k">${U.next}</div><div class="q">${U.ep(next)} · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</a>` : `<span><div class="k">${U.nextSoon}</div><div class="q">${U.ep(next)} · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</span>`;
+  h += `</div><a class="toc" href="#">${U.toc}</a><div class="efoot"><img src="logo.png" alt="Bethany Korean United Methodist Church"><div class="s">${U.foot}</div></div>`;
   app.innerHTML = h;
   window.scrollTo(0, 0);
   let lastY = 0; const bar = document.getElementById('bar');
@@ -202,9 +240,9 @@ function renderEp(n) {
 }
 
 async function share(n) {
-  const url = location.href.split('#')[0] + '#ep-' + n;
-  const data = { title: `베다니 웹툰 제${n}화`, text: W.titles[n], url };
-  try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(url); alert('링크를 복사했어요'); } } catch (e) {}
+  const url = location.href.split('#')[0].split('?')[0] + (LANG === 'en' ? '?lang=en' : '') + '#ep-' + n;
+  const data = { title: LANG === 'en' ? `Bethany Webtoon · Episode ${n}` : `베다니 웹툰 제${n}화`, text: W.titles[n], url };
+  try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(url); alert(U.copied); } } catch (e) {}
 }
 
 function route() {
@@ -212,6 +250,7 @@ function route() {
   const m = location.hash.match(/^#ep-(\d+)/);
   if (m) renderEp(+m[1]); else renderHome();
 }
+buildLang();
 window.addEventListener('hashchange', route);
 route();
 </script>
