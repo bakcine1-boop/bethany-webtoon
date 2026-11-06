@@ -8,7 +8,15 @@
 <meta name="description" content="베다니 한인연합감리교회 웹툰 「베다니다움 감리교다움」 모바일판">
 <meta property="og:title" content="베다니다움 감리교다움 · 베다니 웹툰">
 <meta property="og:description" content="성도님들이 궁금해하실 만한 질문을 쉽고 편안하게 풀어낸 베다니 웹툰">
-<meta property="og:image" content="cover.jpg">
+<meta property="og:image" content="https://bethanytoon.churchhistory.kr/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://bethanytoon.churchhistory.kr/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="베다니 웹툰">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="icon180.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <meta name="theme-color" content="#F6F1E7">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
@@ -142,7 +150,7 @@ html.capture{scrollbar-width:none}
 html.capture::-webkit-scrollbar,.capture ::-webkit-scrollbar{display:none;width:0}
 /* 시즌 · 퀴즈 · 카드 */
 .part.season .pn{background:#1F2A44}
-.part.season .pt small{display:block;margin-top:3px;font-size:12px;font-weight:500;color:#9A917F}
+.part.season .pt small{display:block;margin-top:3px;font-size:12.5px;font-weight:500;color:#6B6355}
 .sbadge{flex:0 0 auto;font-size:12px;font-weight:800;border-radius:999px;padding:4px 9px}
 .sbadge.done{background:#EAF3E6;color:#3E7B3A}.sbadge.lock{background:#F3EEE3}
 .part.locked .ep-row{opacity:.6}
@@ -197,13 +205,39 @@ button.right{border-color:#3E9B4F!important;background:#EAF6EC!important}button.
 .certbox input{width:100%;padding:14px;border-radius:12px;border:1.5px solid #D9C9A3;font:inherit;font-size:16px;text-align:center}
 .certimg{width:100%;margin-top:14px;border-radius:12px}
 .capture .quizgo,.capture .xcard .yt{display:none}
+/* 디자인 개선: 작은 글씨 최소 크기와 대비 */
+.bub{font-size:max(3.89cqw,14.5px)}.bub.whisper{font-size:max(3.3cqw,14px)}.bub.inner{font-size:max(3.3cqw,14px)}.bub.shout{font-size:max(4.6cqw,16px)}
+.who{font-size:max(2.4cqw,11px);color:#80601D}
+.info .it,.nav .k{font-size:max(2.6cqw,11.5px);color:#80601D}.sum .it{font-size:max(2.6cqw,11.5px)}
+.nav .h{font-size:max(3.1cqw,12.5px);color:#5F5849}
+.efoot .s{font-size:max(2.2cqw,11px);color:#6B6355}
+.xcard .xh{font-size:max(3.1cqw,12.5px);color:#80601D}.xcard .xi p.sub{color:#5F5849}
+.flow .d,.chips2 span{font-size:max(3.5cqw,13.5px)}
+.hero .ey,.chip .n,.ep-row .no,.partlabel,.quizbox .qtag,.qtag,.fb .who,.review .xh,.certbox .xh{color:#80601D}
+.sec .sub,.part .pt small,.home-foot p,.part .cnt,.ep-row .tag,.ep-row.off .q{color:#6B6355}
+.partlabel{font-size:12px}.part .pt small{font-size:12.5px}.home-foot p{font-size:12.5px}
+/* 썸네일 목차 */
+.ep-row{gap:12px;padding:10px 14px}
+.ep-row .th{flex:0 0 76px;height:57px;border-radius:9px;object-fit:cover;background:#EFE7D6}
+.ep-row .th.ph{display:flex;align-items:center;justify-content:center;font-size:20px;color:#C9B98F}
+.ep-row .mid{flex:1;min-width:0}.ep-row .mid .no{display:block;font-size:12px;font-weight:800;margin-bottom:2px}
+.ep-row .mid .q{display:block}
+.ep-row.rd .th{opacity:.55}
+.sban{display:block;width:100%;height:110px;object-fit:cover;border-bottom:1px solid #EFE7D6}
+.part.season summary{flex-wrap:nowrap}
+/* 읽기 진행 막대 · 끝 '다음 화' 버튼 */
+#prog{position:fixed;left:0;top:0;height:3px;width:0;background:#C9A45C;z-index:20;transition:width .1s}
+#fnext{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,140%);z-index:20;background:#1F2A44;color:#fff;border-radius:999px;padding:13px 22px;font-size:15px;font-weight:800;box-shadow:0 8px 24px rgba(31,42,68,.28);transition:transform .25s;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+#fnext.show{transform:translate(-50%,0)}
+.capture #prog,.capture #fnext{display:none}
 </style>
 </head>
 <body>
+<div id="prog"></div><a id="fnext" href="#" style="display:none"></a>
 <div class="app wrap" id="app"></div>
-<script src="data.js?v=202611070147"></script>
-<script src="data_en.js?v=202611070147"></script>
-<script src="season.js?v=202611070147"></script>
+<script src="data.js?v=202611070245"></script>
+<script src="data_en.js?v=202611070245"></script>
+<script src="season.js?v=202611070245"></script>
 <script>
 const K = window.WEBTOON, EN = window.WEBTOON_EN;
 const QS = new URLSearchParams(location.search);
@@ -245,7 +279,7 @@ const langBtnLabel = () => LANG === 'en' ? '한국어' : 'English';
 
 function bubble(b) {
   if (b.sfx) return `<div class="sfx${b.gold ? ' gold' : ''}" style="left:${(b.x / 1080 * 100).toFixed(2)}%;top:${(b.y / 1350 * 100).toFixed(2)}%;font-size:${((b.fs || 70) / 1080 * 100).toFixed(2)}cqw;${b.rot != null ? `--rot:${b.rot}deg;` : ''}">${b.sfx}</div>`;
-  const style = `left:${(b.x / 1080 * 100).toFixed(2)}%;top:${(b.y / 1350 * 100).toFixed(2)}%;${b.tx ? `--tx:${b.tx};` : ''}${b.fs ? `font-size:${(b.fs / 1080 * 100).toFixed(2)}cqw;` : ''}`;
+  const style = `left:${(b.x / 1080 * 100).toFixed(2)}%;top:${(b.y / 1350 * 100).toFixed(2)}%;${b.tx ? `--tx:${b.tx};` : ''}${b.fs ? `font-size:max(${(b.fs / 1080 * 100).toFixed(2)}cqw,${b.kind === 'shout' ? 15 : 14}px);` : ''}`;
   return `<div class="bub${b.think ? ' think' : ''}${b.kind ? ' ' + b.kind : ''}" style="${style}${b.rot != null ? `--rot:${b.rot}deg;` : ''}">${b.who ? `<span class="who">${b.who}</span>` : ''}${nl(b.t)}${b.think ? '<i></i><u></u>' : ''}</div>`;
 }
 
@@ -291,9 +325,13 @@ function renderEp(n) {
   if (next > 63) h += `<a href="#ep-1"><div class="k">THE END</div><div class="q">${U.restart}</div></a>`;
   h += `</div><a class="toc" href="#">${U.toc}</a><div class="efoot"><img src="logo.png" alt="Bethany Korean United Methodist Church"><div class="s">${U.foot}</div></div>`;
   app.innerHTML = h;
+  fitBubbles(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitBubbles);
   window.scrollTo(0, 0);
   let lastY = 0; const bar = document.getElementById('bar');
-  window.onscroll = () => { const y = window.scrollY; if (bar) bar.classList.toggle('hide', y > lastY && y > 120); lastY = y; };
+  const pb = document.getElementById('prog'), fn = document.getElementById('fnext');
+  const nx = (n < 63 && ready(n + 1) && seasonGateNav(n) === '') ? `#ep-${n + 1}` : (seasonGateNav(n) ? `#quiz-${seasonOf(n).n}` : (n >= 63 ? '#ep-1' : ''));
+  if (fn) { fn.style.display = nx ? '' : 'none'; fn.href = nx; fn.textContent = nx.startsWith('#quiz') ? `${T().quiz(seasonOf(n).n)} →` : n >= 63 ? U.restart : `${U.ep(n + 1)} →`; }
+  window.onscroll = () => { const y = window.scrollY; if (bar) bar.classList.toggle('hide', y > lastY && y > 120); lastY = y; const H = document.documentElement.scrollHeight - innerHeight; const r = H > 0 ? y / H : 0; if (pb) pb.style.width = (r * 100).toFixed(1) + '%'; if (fn) { const nv = document.querySelector('.nav'); const navIn = nv && nv.getBoundingClientRect().top < innerHeight - 20; fn.classList.toggle('show', r > .7 && !navIn); } };
 }
 
 async function share(n) {
@@ -340,15 +378,16 @@ function seasonTOC() {
     const st = s[LANG] || s.ko; const [a, b] = s.eps; const eps = []; for (let k = a; k <= b; k++) eps.push(k);
     const nread = eps.filter(k => rd.includes(k)).length; const un = seasonUnlocked(s.n); const passed = quizPassed(s.n);
     const badge = passed ? `<span class="sbadge done">✓ ${t.done}</span>` : !un ? `<span class="sbadge lock">🔒</span>` : '';
-    h += `<details class="part season${un ? '' : ' locked'}"${i === 0 ? ' open' : ''}><summary><span class="pn">${t.season(s.n)}</span><span class="pt">${st.title}<small>${t.eps(a, b)} · ${t.partLabel} ${st.parts}${nread ? ` · ${t.read(nread, eps.length)}` : ''}</small></span>${badge}</summary>`;
+    h += `<details class="part season${un ? '' : ' locked'}"${i === 0 ? ' open' : ''}><summary><span class="pn">${t.season(s.n)}</span><span class="pt">${st.title}<small>${t.eps(a, b)} · ${t.partLabel} ${st.parts}${nread ? ` · ${t.read(nread, eps.length)}` : ''}</small></span>${badge}</summary><img class="sban" src="thumb_s${s.n}.webp" alt="" loading="lazy" onerror="this.remove()">`;
     if (!un) h += `<div class="lockrow">🔒 ${t.lockT(s.n - 1)} <a href="#quiz-${s.n - 1}">${t.takeQuiz} →</a></div>`;
     let lastPart = null;
     for (const k of eps) {
       const p = W.parts.find(pp => pp.eps.includes(k));
       if (p && p !== lastPart) { h += `<div class="partlabel">${p.name} · ${p.title}</div>`; lastPart = p; }
       const href = un ? `#ep-${k}` : `#lock-${s.n}-${k}`;
-      h += ready(k) ? `<a class="ep-row${rd.includes(k) ? ' rd' : ''}" href="${href}"><span class="no">${U.epShort(k)}</span><span class="q">${W.titles[k]}</span><span class="tag new">${rd.includes(k) ? '✓' : U.read}</span></a>`
-        : `<div class="ep-row off"><span class="no">${U.epShort(k)}</span><span class="q">${W.titles[k]}</span><span class="tag">${U.soon}</span></div>`;
+      const th = `<img class="th" src="thumb_ep${String(k).padStart(2, '0')}.webp" alt="" loading="lazy" onerror="this.outerHTML='<span class=&quot;th ph&quot;>✦</span>'">`;
+      h += ready(k) ? `<a class="ep-row${rd.includes(k) ? ' rd' : ''}" href="${href}">${th}<span class="mid"><span class="no">${U.epShort(k)}</span><span class="q">${W.titles[k]}</span></span><span class="tag new">${rd.includes(k) ? '✓' : U.read}</span></a>`
+        : `<div class="ep-row off"><span class="th ph">✦</span><span class="mid"><span class="no">${U.epShort(k)}</span><span class="q">${W.titles[k]}</span></span><span class="tag">${U.soon}</span></div>`;
     }
     if (X.quiz[s.n]) h += `<a class="ep-row quizrow" href="#quiz-${s.n}"><span class="no">Q</span><span class="q">${t.quiz(s.n)}${passed ? ' ✓' : ''}</span><span class="tag new">GO</span></a>`;
     h += `</details>`;
@@ -462,8 +501,23 @@ async function makeCert(s, sc, tot) {
   };
 }
 
+function fitBubbles() {
+  document.querySelectorAll('.panel').forEach(p => {
+    const pr = p.getBoundingClientRect(), W = pr.width, H = W * 1.25, m = 4;
+    p.querySelectorAll('.bub,.sfx').forEach(b => {
+      b.style.marginLeft = ''; b.style.marginTop = '';
+      const q = b.getBoundingClientRect(); let dx = 0, dy = 0;
+      if (q.right > pr.left + W - m) dx = pr.left + W - m - q.right;
+      if (q.left + dx < pr.left + m) dx = pr.left + m - q.left;
+      if (q.bottom > pr.top + H - m) dy = pr.top + H - m - q.bottom;
+      if (q.top + dy < pr.top + m) dy = pr.top + m - q.top;
+      if (dx) b.style.marginLeft = dx.toFixed(1) + 'px'; if (dy) b.style.marginTop = dy.toFixed(1) + 'px';
+    });
+  });
+}
+window.addEventListener('resize', () => { if (location.hash.startsWith('#ep-')) fitBubbles(); });
 function route() {
-  window.onscroll = null;
+  window.onscroll = null; { const pb = document.getElementById('prog'), fn = document.getElementById('fnext'); if (pb) pb.style.width = '0'; if (fn) { fn.classList.remove('show'); fn.style.display = 'none'; } }
   const m = location.hash.match(/^#ep-(\d+)/), q = location.hash.match(/^#quiz-(\d+)/), l = location.hash.match(/^#lock-(\d+)-(\d+)/);
   if (m) renderEp(+m[1]); else if (q) renderQuiz(+q[1]); else if (l) renderLock(+l[1], +l[2]); else renderHome();
 }
