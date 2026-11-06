@@ -143,8 +143,8 @@ html.capture::-webkit-scrollbar,.capture ::-webkit-scrollbar{display:none;width:
 </head>
 <body>
 <div class="app wrap" id="app"></div>
-<script src="data.js?v=202611060625"></script>
-<script src="data_en.js?v=202611060625"></script>
+<script src="data.js?v=202611062201"></script>
+<script src="data_en.js?v=202611062201"></script>
 <script>
 const K = window.WEBTOON, EN = window.WEBTOON_EN;
 const QS = new URLSearchParams(location.search);
@@ -158,7 +158,7 @@ const nl = s => s.replace(/\n/g, '<br>');
 const lastKey = 'bethany-webtoon-last';
 const UI_KO = { start: '1화부터 보기', cont: n => `이어 보기 · ${n}화`, starterH: '처음 오셨다면, 이것부터', starterSub: '새가족이 가장 먼저 궁금해하는 10편',
   tocH: '전체 목차', tocSub: '8부 · 63화', cnt: n => `${n}화`, read: '보기', soon: '준비 중', ep: n => `제${n}화`, epShort: n => `${n}화`,
-  back: '← 목차', share: '공유', copied: '링크를 복사했어요', sum: '오늘의 정리', prev: 'PREV', next: 'NEXT EPISODE', nextSoon: 'NEXT EPISODE · 준비 중', toc: '전체 목차 보기',
+  back: '← 목차', share: '공유', copied: '링크를 복사했어요', sum: '오늘의 정리', prev: 'PREV', next: 'NEXT EPISODE', nextSoon: 'NEXT EPISODE · 준비 중', toc: '전체 목차 보기', restart: '처음부터 다시 보기',
   foot: `웹툰 「${K.series}」 · 모바일판`, homeFoot: '웹툰 「베다니다움 감리교다움」 · 원작 『베다니다움, 감리교다움』', flow: '한눈에 보기', stat: '기억하기', siteTitle: '베다니다움 감리교다움 · 베다니 웹툰' };
 let W, U;
 function buildLang() {
@@ -233,6 +233,7 @@ function renderEp(n) {
   h += `<div class="closing">${nl(ep.closing)}</div><div class="nav">`;
   if (prev >= 1 && !CAPTURE) h += ready(prev) ? `<a href="#ep-${prev}"><div class="k">${U.prev}</div><div class="q">${U.ep(prev)}</div></a>` : `<span><div class="k">${U.prev}</div><div class="q">${U.ep(prev)}</div></span>`;
   if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"><div class="k">${U.next}</div><div class="q">${U.ep(next)} · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</a>` : `<span><div class="k">${U.nextSoon}</div><div class="q">${U.ep(next)} · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</span>`;
+  if (next > 63) h += `<a href="#ep-1"><div class="k">THE END</div><div class="q">${U.restart}</div></a>`;
   h += `</div><a class="toc" href="#">${U.toc}</a><div class="efoot"><img src="logo.png" alt="Bethany Korean United Methodist Church"><div class="s">${U.foot}</div></div>`;
   app.innerHTML = h;
   window.scrollTo(0, 0);
