@@ -140,12 +140,70 @@ html[lang=en] .narr,html[lang=en] .closing,html[lang=en] .sum li{text-wrap:prett
 .capture .lang,.capture .lg{display:none}
 html.capture{scrollbar-width:none}
 html.capture::-webkit-scrollbar,.capture ::-webkit-scrollbar{display:none;width:0}
+/* 시즌 · 퀴즈 · 카드 */
+.part.season .pn{background:#1F2A44}
+.part.season .pt small{display:block;margin-top:3px;font-size:12px;font-weight:500;color:#9A917F}
+.sbadge{flex:0 0 auto;font-size:12px;font-weight:800;border-radius:999px;padding:4px 9px}
+.sbadge.done{background:#EAF3E6;color:#3E7B3A}.sbadge.lock{background:#F3EEE3}
+.part.locked .ep-row{opacity:.6}
+.lockrow{margin:10px 16px 2px;padding:10px 12px;border-radius:12px;background:#FBF6EA;font-size:13px;color:#6B6252;line-height:1.5}
+.lockrow a{color:#A9802F;font-weight:800;white-space:nowrap}
+.partlabel{padding:12px 18px 4px;font-size:11.5px;font-weight:800;letter-spacing:.04em;color:#A9802F}
+.ep-row.rd .no{color:#B9AE97}
+.ep-row.quizrow{background:#FBF6EA}.ep-row.quizrow .no{color:#A9802F;font-weight:900}
+.xcard{margin:0 6.5cqw 4.5cqw;background:#fff;border:1px solid #E4DAC4;border-radius:3.5cqw;overflow:hidden;box-shadow:0 1cqw 3cqw rgba(31,42,68,.06)}
+.xcard .xh{font-size:3.1cqw;font-weight:800;color:#A9802F;letter-spacing:.02em}
+.xcard.real .xh{padding:4.4cqw 5.5cqw 3cqw}
+.xcard.real img{display:block;width:100%}
+.xcard.real p{padding:3.6cqw 5.5cqw 4.6cqw;font-size:3.7cqw;line-height:1.55;color:#2A3146}
+.xcard .yt{display:block;margin:0 5.5cqw 4.6cqw;padding:3cqw;text-align:center;border-radius:2.4cqw;background:#F6F1E7;color:#B3261E;font-weight:800;font-size:3.5cqw}
+.xcard.two{padding:1cqw 0}
+.xcard .xi{padding:4cqw 5.5cqw}.xcard .xi+.xi{border-top:1px dashed #E4DAC4}
+.xcard .xi p{margin-top:2cqw;font-size:4cqw;line-height:1.55;font-weight:600;color:#1F2A44}
+.xcard .xi p.sub{margin-top:1.4cqw;font-size:3.3cqw;font-weight:500;color:#7C7466}
+.quizgo{display:block;margin:0 6.5cqw 4cqw;padding:5cqw;border-radius:3.5cqw;background:linear-gradient(135deg,#1F2A44,#34436B);color:#fff;text-align:center}
+.quizgo .k{font-size:2.8cqw;font-weight:800;letter-spacing:.3em;color:#E9C77B}
+.quizgo .q{margin-top:1.6cqw;font-size:4.4cqw;font-weight:800;line-height:1.4}
+.quizgo .h{margin-top:1.4cqw;font-size:3.2cqw;color:#D9D3C4}
+.nav a.skipnext{opacity:.75}
+.quizbox{padding:24px 22px 40px;text-align:center}
+.quizbox .qimg img{width:100%;border-radius:18px;aspect-ratio:16/10;object-fit:cover}
+.quizbox h2{margin-top:18px;font-size:21px;font-weight:800;line-height:1.45;color:#1F2A44;letter-spacing:-.02em}
+.quizbox p{margin-top:10px;font-size:15px;line-height:1.6;color:#4A5066}
+.pre{white-space:pre-line}
+.qtag{margin-top:16px;font-size:12.5px;font-weight:800;letter-spacing:.1em;color:#A9802F}
+.qbtn{display:block;width:100%;margin-top:14px;padding:16px;border-radius:14px;border:0;font:inherit;font-size:16.5px;font-weight:800;cursor:pointer;text-align:center}
+.qbtn.p{background:#1F2A44;color:#fff}.qbtn.p:disabled{opacity:.35}
+.qbtn.link{background:none;color:#7C7466;font-weight:600;font-size:14.5px;text-decoration:underline}
+.qprog{height:6px;border-radius:9px;background:#E9E1CF;overflow:hidden}.qprog span{display:block;height:100%;background:#C9A45C}
+.quizbox.q{text-align:left}.quizbox.q h2{font-size:20px}
+.ox{display:flex;gap:12px;margin-top:20px}.ox button{flex:1;padding:22px 8px;border-radius:16px;border:2px solid #E4DAC4;background:#fff;font:inherit;font-size:19px;font-weight:900;color:#1F2A44;cursor:pointer}
+.mc{margin-top:18px;display:flex;flex-direction:column;gap:10px}.mc button{display:flex;gap:12px;align-items:center;text-align:left;padding:15px 16px;border-radius:14px;border:2px solid #E4DAC4;background:#fff;font:inherit;font-size:16px;font-weight:600;color:#1F2A44;line-height:1.4;cursor:pointer}
+.mc button b{flex:0 0 28px;height:28px;border-radius:50%;background:#F3EEE3;display:flex;align-items:center;justify-content:center;font-size:14px}
+.hint{font-size:13.5px!important;color:#9A917F!important}
+.ord{margin-top:12px;display:flex;flex-direction:column;gap:10px}.ord button{position:relative;padding:15px 50px 15px 16px;border-radius:14px;border:2px solid #E4DAC4;background:#fff;font:inherit;font-size:16px;font-weight:700;color:#1F2A44;text-align:left;cursor:pointer}
+.ord button i{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;font-style:normal;font-weight:900;display:flex;align-items:center;justify-content:center}
+.ord button.on{border-color:#C9A45C;background:#FBF6EA}.ord button.on i{background:#C9A45C;color:#fff}
+button.right{border-color:#3E9B4F!important;background:#EAF6EC!important}button.bad{border-color:#D0584C!important;background:#FBECEA!important}
+.fb{margin-top:18px;padding:16px;border-radius:16px;background:#fff;border:1px solid #E4DAC4}
+.fb .who{font-size:12px;font-weight:800;color:#A9802F}.fb .say{margin-top:4px;font-size:17px;font-weight:800;color:#1F2A44}
+.fb.no .say{color:#B3261E}.fb p{font-size:15px!important}
+.fb .epl{display:inline-block;margin-top:10px;font-size:13.5px;font-weight:700;color:#A9802F}
+.big{font-size:84px;font-weight:900;color:#1F2A44;line-height:1}.big small{font-size:30px;color:#9A917F}.big.ok{color:#A9802F}
+.review{margin-top:18px;text-align:left;background:#fff;border:1px solid #E4DAC4;border-radius:16px;padding:14px 16px}
+.review .xh,.certbox .xh{font-size:13px;font-weight:800;color:#A9802F;margin-bottom:6px}
+.review a{display:block;padding:9px 0;border-top:1px solid #F0E9DA;font-size:14.5px;font-weight:600;color:#1F2A44}
+.certbox{margin-top:18px;background:#fff;border:1px solid #E4DAC4;border-radius:16px;padding:16px}
+.certbox input{width:100%;padding:14px;border-radius:12px;border:1.5px solid #D9C9A3;font:inherit;font-size:16px;text-align:center}
+.certimg{width:100%;margin-top:14px;border-radius:12px}
+.capture .quizgo,.capture .xcard .yt{display:none}
 </style>
 </head>
 <body>
 <div class="app wrap" id="app"></div>
-<script src="data.js?v=202611070044"></script>
-<script src="data_en.js?v=202611070044"></script>
+<script src="data.js?v=202611070105"></script>
+<script src="data_en.js?v=202611070105"></script>
+<script src="season.js?v=202611070105"></script>
 <script>
 const K = window.WEBTOON, EN = window.WEBTOON_EN;
 const QS = new URLSearchParams(location.search);
@@ -202,13 +260,8 @@ function renderHome() {
     <div class="chips">${W.starter.map(n => ready(n)
       ? `<a class="chip" href="#ep-${n}"><div class="n">${U.ep(n)}</div><div class="q">${W.titles[n]}</div></a>`
       : `<div class="chip off"><div class="n">${U.ep(n)} · ${U.soon}</div><div class="q">${W.titles[n]}</div></div>`).join('')}</div>
-    <div class="sec"><h2>${U.tocH}</h2><div class="sub">${U.tocSub}</div></div>`;
-  W.parts.forEach((p, i) => {
-    h += `<details class="part"${i === 0 ? ' open' : ''}><summary><span class="pn">${p.name}</span><span class="pt">${p.title}</span><span class="cnt">${U.cnt(p.eps.length)}</span></summary>
-      ${p.eps.map(n => ready(n)
-        ? `<a class="ep-row" href="#ep-${n}"><span class="no">${U.epShort(n)}</span><span class="q">${W.titles[n]}</span><span class="tag new">${U.read}</span></a>`
-        : `<div class="ep-row off"><span class="no">${U.epShort(n)}</span><span class="q">${W.titles[n]}</span><span class="tag">${U.soon}</span></div>`).join('')}</details>`;
-  });
+    <div class="sec"><h2>${U.tocH}</h2><div class="sub">${U.tocSub} · ${T().allSeasons}</div></div>`;
+  h += seasonTOC();
   h += `<div class="home-foot"><img src="logo.png" alt="Bethany Korean United Methodist Church"><p>${U.homeFoot}</p></div>`;
   app.innerHTML = h;
   window.scrollTo(0, 0);
@@ -217,7 +270,7 @@ function renderHome() {
 function renderEp(n) {
   const ep = W.episodes[n];
   if (!ep) { location.hash = ''; return; }
-  localStorage.setItem(lastKey, n);
+  localStorage.setItem(lastKey, n); if (!CAPTURE) markRead(n);
   document.title = `${U.ep(n)} ${W.titles[n]} · ${LANG === 'en' ? 'Bethany Webtoon' : '베다니 웹툰'}`;
   let h = `<div class="bar" id="bar"><a class="btn" href="#">${U.back}</a><div class="t">${U.ep(n)}</div><div class="rt"><button class="lg" onclick="toggleLang()">${LANG === 'en' ? '한' : 'EN'}</button><button class="share" onclick="share(${n})">${U.share}</button></div></div>`;
   for (const b of ep.blocks) {
@@ -231,9 +284,10 @@ function renderEp(n) {
   }
   if (ep.summary) h += `<div class="sum"><div class="it">${U.sum}</div><ol>${ep.summary.map(s => `<li><span>${s}</span></li>`).join('')}</ol></div>`;
   const prev = n - 1, next = n + 1;
-  h += `<div class="closing">${nl(ep.closing)}</div><div class="nav">`;
+  h += `<div class="closing">${nl(ep.closing)}</div>${epExtras(n)}${seasonGateNav(n)}<div class="nav">`;
   if (prev >= 1 && !CAPTURE) h += ready(prev) ? `<a href="#ep-${prev}"><div class="k">${U.prev}</div><div class="q">${U.ep(prev)}</div></a>` : `<span><div class="k">${U.prev}</div><div class="q">${U.ep(prev)}</div></span>`;
-  if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"><div class="k">${U.next}</div><div class="q">${U.ep(next)} · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</a>` : `<span><div class="k">${U.nextSoon}</div><div class="q">${U.ep(next)} · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</span>`;
+  const gate = seasonGateNav(n) !== '';
+  if (next <= 63) h += ready(next) ? `<a href="#ep-${next}"${gate ? ' class="skipnext"' : ''}><div class="k">${gate ? T().justNext : U.next}</div><div class="q">${U.ep(next)} · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</a>` : `<span><div class="k">${U.nextSoon}</div><div class="q">${U.ep(next)} · ${W.titles[next]}</div>${ep.hook ? `<div class="h">${ep.hook}</div>` : ''}</span>`;
   if (next > 63) h += `<a href="#ep-1"><div class="k">THE END</div><div class="q">${U.restart}</div></a>`;
   h += `</div><a class="toc" href="#">${U.toc}</a><div class="efoot"><img src="logo.png" alt="Bethany Korean United Methodist Church"><div class="s">${U.foot}</div></div>`;
   app.innerHTML = h;
@@ -248,10 +302,170 @@ async function share(n) {
   try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(url); alert(U.copied); } } catch (e) {}
 }
 
+// ===== 시즌 · 퀴즈 · 화별 카드 =====
+const X = window.WEBTOON_X || { seasons: [], ep: {}, quiz: {} };
+const QK = 'bethany-webtoon-quiz', SKIPK = 'bethany-webtoon-skip', READK = 'bethany-webtoon-read', NAMEK = 'bethany-webtoon-name';
+const jget = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } };
+const jset = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+const QT = {
+  ko: { season: n => `시즌 ${n}`, eps: (a, b) => `${a}~${b}화`, lockT: n => `시즌 ${n} 퀴즈를 풀면 열려요`, open: '열림', done: '수료',
+    read: (a, b) => `${a}/${b}화 읽음`, quiz: n => `시즌 ${n} 퀴즈`, quizGo: n => `시즌 ${n} 완주! 퀴즈 풀고 다음 시즌 열기`, quizSub: '10문제 중 6개 이상 맞히면 다음 시즌이 열려요',
+    justNext: '퀴즈 없이 다음 화 보기', lockH: '잠깐! 다음 시즌은 퀴즈를 풀면 열려요', lockP: (s) => `시즌 ${s} 내용을 퀴즈로 한 번 정리해 볼까요?\n10문제 중 6개 이상이면 통과예요. 몇 번이든 다시 도전할 수 있어요.`,
+    takeQuiz: '퀴즈 풀러 가기', skip: '그냥 볼게요', start: '시작하기', qof: (i, t) => `${i} / ${t}`, o: 'O 맞아요', x: 'X 아니에요', check: '확인', next: '다음 문제', result: '결과 보기',
+    orderHint: '순서대로 눌러 주세요. 다시 누르면 취소돼요.', right: ['정답! 나 천재 아니야?', '딩동댕~!', '와, 완전 정답!'], wrong: '근데 그건 왜 그런 거예요?', host: '하민', dad: '아빠',
+    score: (s, t) => `${t}문제 중 ${s}개 정답`, pass: '통과! 다음 시즌이 열렸어요', fail: '아쉬워요! 6개 이상이면 열려요', retry: '다시 도전', review: '다시 보면 좋은 화', goNext: n => `시즌 ${n} 시작하기`,
+    cert: '수료 카드 만들기', namePh: '이름을 적어 주세요', save: '카드 저장·공유', certT: '수료 카드', certLine: (s) => `시즌 ${s} 수료`, home: '목차로',
+    intro: n => `시즌 ${n}에서 배운 예배 이야기를\n퀴즈로 정리해 볼까요?`, readMore: '이 내용은', inEp: n => `${n}화에 있어요`,
+    realH: '실제 베다니에서는', tryH: '이번 주일에 해 보기', talkH: '가족과 나눌 질문', yt: '베다니 예배 영상 보기', allSeasons: '시즌별 보기', partLabel: '원작' },
+  en: { season: n => `Season ${n}`, eps: (a, b) => `Ep. ${a}–${b}`, lockT: n => `Unlocks after the Season ${n} quiz`, open: 'Open', done: 'Completed',
+    read: (a, b) => `${a}/${b} read`, quiz: n => `Season ${n} Quiz`, quizGo: n => `Season ${n} complete! Take the quiz to unlock the next season`, quizSub: 'Get 6 out of 10 right to unlock the next season',
+    justNext: 'Skip the quiz and keep reading', lockH: 'Hold on! The next season unlocks with a quiz', lockP: (s) => `Want to review Season ${s} with a quick quiz?\nGet 6 out of 10 to pass. You can retry as many times as you like.`,
+    takeQuiz: 'Take the quiz', skip: 'Just let me read', start: 'Start', qof: (i, t) => `${i} / ${t}`, o: 'O  True', x: 'X  False', check: 'Check', next: 'Next', result: 'See results',
+    orderHint: 'Tap in order. Tap again to undo.', right: ['Correct! Am I a genius or what?', 'Ding-ding-ding!', 'Totally right!'], wrong: 'Wait, but why is that?', host: 'Hamin', dad: 'Dad',
+    score: (s, t) => `${s} of ${t} correct`, pass: 'You passed! The next season is unlocked', fail: 'So close! You need 6 to pass', retry: 'Try again', review: 'Episodes worth another look', goNext: n => `Start Season ${n}`,
+    cert: 'Make my completion card', namePh: 'Your name', save: 'Save / share card', certT: 'Completion Card', certLine: (s) => `Season ${s} Completed`, home: 'Contents',
+    intro: n => `Ready to review what you learned\nin Season ${n}?`, readMore: 'Find this in', inEp: n => `Episode ${n}`,
+    realH: 'At the Real Bethany', tryH: 'Try It This Sunday', talkH: 'Talk About It as a Family', yt: 'Watch Bethany worship videos', allSeasons: 'By Season', partLabel: 'Book' },
+};
+const T = () => QT[LANG] || QT.ko;
+const seasonOf = n => X.seasons.find(s => n >= s.eps[0] && n <= s.eps[1]);
+const quizPassed = s => (jget(QK, {})[s] || 0) >= ((X.quiz[s] || {}).pass || 6);
+const seasonUnlocked = s => s <= 1 || !X.quiz[s - 1] || quizPassed(s - 1) || (jget(SKIPK, {})[s] === true);
+function markRead(n) { const r = jget(READK, []); if (!r.includes(n)) { r.push(n); jset(READK, r); } }
+
+function seasonTOC() {
+  const t = T(); const rd = jget(READK, []);
+  let h = '';
+  X.seasons.forEach((s, i) => {
+    const st = s[LANG] || s.ko; const [a, b] = s.eps; const eps = []; for (let k = a; k <= b; k++) eps.push(k);
+    const nread = eps.filter(k => rd.includes(k)).length; const un = seasonUnlocked(s.n); const passed = quizPassed(s.n);
+    const badge = passed ? `<span class="sbadge done">✓ ${t.done}</span>` : !un ? `<span class="sbadge lock">🔒</span>` : '';
+    h += `<details class="part season${un ? '' : ' locked'}"${i === 0 ? ' open' : ''}><summary><span class="pn">${t.season(s.n)}</span><span class="pt">${st.title}<small>${t.eps(a, b)} · ${t.partLabel} ${st.parts}${nread ? ` · ${t.read(nread, eps.length)}` : ''}</small></span>${badge}</summary>`;
+    if (!un) h += `<div class="lockrow">🔒 ${t.lockT(s.n - 1)} <a href="#quiz-${s.n - 1}">${t.takeQuiz} →</a></div>`;
+    let lastPart = null;
+    for (const k of eps) {
+      const p = W.parts.find(pp => pp.eps.includes(k));
+      if (p && p !== lastPart) { h += `<div class="partlabel">${p.name} · ${p.title}</div>`; lastPart = p; }
+      const href = un ? `#ep-${k}` : `#lock-${s.n}-${k}`;
+      h += ready(k) ? `<a class="ep-row${rd.includes(k) ? ' rd' : ''}" href="${href}"><span class="no">${U.epShort(k)}</span><span class="q">${W.titles[k]}</span><span class="tag new">${rd.includes(k) ? '✓' : U.read}</span></a>`
+        : `<div class="ep-row off"><span class="no">${U.epShort(k)}</span><span class="q">${W.titles[k]}</span><span class="tag">${U.soon}</span></div>`;
+    }
+    if (X.quiz[s.n]) h += `<a class="ep-row quizrow" href="#quiz-${s.n}"><span class="no">Q</span><span class="q">${t.quiz(s.n)}${passed ? ' ✓' : ''}</span><span class="tag new">GO</span></a>`;
+    h += `</details>`;
+  });
+  return h;
+}
+
+function epExtras(n) {
+  const x = X.ep[n]; if (!x) return ''; const t = T(); let h = '';
+  if (x.real) h += `<div class="xcard real"><div class="xh">📍 ${t.realH}</div><img src="${x.real.img}" alt="" loading="lazy"><p>${x.real[LANG] || x.real.ko}</p>${n % 4 === 0 ? `<a class="yt" href="${X.youtube}" target="_blank" rel="noopener">▶ ${t.yt}</a>` : ''}</div>`;
+  if (x.tryit || x.talk) h += `<div class="xcard two">${x.tryit ? `<div class="xi"><div class="xh">✅ ${t.tryH}</div><p>${x.tryit[LANG] || x.tryit.ko}</p></div>` : ''}${x.talk ? `<div class="xi"><div class="xh">💬 ${t.talkH}</div><p>${x.talk[LANG] || x.talk.ko}</p>${LANG === 'ko' && x.talk.en ? `<p class="sub">${x.talk.en}</p>` : ''}</div>` : ''}</div>`;
+  return h;
+}
+
+function seasonGateNav(n) {
+  const s = seasonOf(n); if (!s || n !== s.eps[1] || !X.quiz[s.n] || quizPassed(s.n) || CAPTURE) return '';
+  const t = T();
+  return `<a class="quizgo" href="#quiz-${s.n}"><div class="k">QUIZ</div><div class="q">${t.quizGo(s.n)}</div><div class="h">${t.quizSub}</div></a>`;
+}
+
+function renderLock(s, k) {
+  const t = T(); document.title = t.quiz(s - 1);
+  app.innerHTML = `<div class="bar" id="bar"><a class="btn" href="#">${U.back}</a><div class="t">${t.season(s)}</div><div class="rt"></div></div>
+    <div class="quizbox"><div class="qimg"><img src="ep12_together.jpg" alt=""></div><h2>${t.lockH}</h2><p class="pre">${t.lockP(s - 1)}</p>
+    <a class="qbtn p" href="#quiz-${s - 1}">${t.takeQuiz}</a><button class="qbtn link" onclick="skipSeason(${s},${k})">${t.skip}</button></div>`;
+  window.scrollTo(0, 0);
+}
+function skipSeason(s, k) { const sk = jget(SKIPK, {}); sk[s] = true; jset(SKIPK, sk); location.hash = '#ep-' + k; }
+
+let QS_ = null;
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+function renderQuiz(s) {
+  const Q = X.quiz[s]; if (!Q) { location.hash = ''; return; }
+  const t = T(); document.title = t.quiz(s);
+  QS_ = { s, i: -1, score: 0, wrong: [], pick: [], answered: false };
+  app.innerHTML = `<div class="bar" id="bar"><a class="btn" href="#">${U.back}</a><div class="t">${t.quiz(s)}</div><div class="rt"><button class="lg" onclick="toggleLang()">${LANG === 'en' ? '한' : 'EN'}</button></div></div><div id="qz"></div>`;
+  document.getElementById('qz').innerHTML = `<div class="quizbox"><div class="qimg"><img src="ep12_together.jpg" alt=""></div><div class="qtag">${t.season(s)} · ${(X.seasons[s - 1][LANG] || X.seasons[s - 1].ko).title}</div><h2 class="pre">${t.intro(s)}</h2><p>${t.quizSub}</p><button class="qbtn p" onclick="qNext()">${t.start}</button></div>`;
+  window.scrollTo(0, 0);
+}
+function qNext() {
+  const Q = X.quiz[QS_.s]; QS_.i++; QS_.answered = false; QS_.pick = [];
+  if (QS_.i >= Q.q.length) return qResult();
+  const t = T(); const it = Q.q[QS_.i]; const L = it[LANG] || it.ko;
+  let body = '';
+  if (it.type === 'ox') body = `<div class="ox"><button onclick="qAns(true)">${t.o}</button><button onclick="qAns(false)">${t.x}</button></div>`;
+  else if (it.type === 'mc') body = `<div class="mc">${L.o.map((o, k) => `<button onclick="qAns(${k})"><b>${k + 1}</b>${o}</button>`).join('')}</div>`;
+  else if (it.type === 'order') { QS_.ord = shuffle(L.o.map((o, k) => k)); body = `<p class="hint">${t.orderHint}</p><div class="ord" id="ord">${QS_.ord.map(k => `<button data-k="${k}" onclick="qOrd(${k},this)">${L.o[k]}<i></i></button>`).join('')}</div><button class="qbtn p" id="ordok" disabled onclick="qAns('order')">${t.check}</button>`; }
+  document.getElementById('qz').innerHTML = `<div class="quizbox q"><div class="qprog"><span style="width:${(QS_.i / Q.q.length * 100).toFixed(0)}%"></span></div><div class="qtag">${t.qof(QS_.i + 1, Q.q.length)}</div><h2>${L.q}</h2>${body}<div id="fb"></div></div>`;
+  window.scrollTo(0, 0);
+}
+function qOrd(k, el) {
+  const p = QS_.pick; const at = p.indexOf(k);
+  if (QS_.answered) return;
+  if (at >= 0) p.splice(at, 1); else p.push(k);
+  document.querySelectorAll('#ord button').forEach(b => { const kk = +b.dataset.k; const ix = p.indexOf(kk); b.classList.toggle('on', ix >= 0); b.querySelector('i').textContent = ix >= 0 ? ix + 1 : ''; });
+  document.getElementById('ordok').disabled = p.length !== QS_.ord.length;
+}
+function qAns(v) {
+  if (QS_.answered) return; QS_.answered = true;
+  const Q = X.quiz[QS_.s]; const it = Q.q[QS_.i]; const L = it[LANG] || it.ko; const t = T();
+  let ok;
+  if (it.type === 'order') ok = QS_.pick.every((k, i) => k === i);
+  else ok = v === it.a;
+  if (ok) QS_.score++; else QS_.wrong.push(QS_.i);
+  document.querySelectorAll('.quizbox.q button').forEach(b => b.disabled = true);
+  if (it.type === 'ox') { const bs = document.querySelectorAll('.ox button'); bs[it.a ? 0 : 1].classList.add('right'); if (!ok) bs[v ? 0 : 1].classList.add('bad'); }
+  if (it.type === 'mc') { const bs = document.querySelectorAll('.mc button'); bs[it.a].classList.add('right'); if (!ok) bs[v].classList.add('bad'); }
+  if (it.type === 'order') document.querySelectorAll('#ord button').forEach(b => b.classList.add(ok ? 'right' : 'bad'));
+  const last = QS_.i === Q.q.length - 1;
+  document.getElementById('fb').innerHTML = `<div class="fb ${ok ? 'ok' : 'no'}"><div class="who">${ok ? t.host : t.dad}</div><div class="say">${ok ? t.right[QS_.i % t.right.length] : t.wrong}</div><p>${L.ex}</p><a href="#ep-${it.ep}" class="epl">${t.readMore} ${t.inEp(it.ep)}</a></div><button class="qbtn p" onclick="qNext()">${last ? t.result : t.next}</button>`;
+  document.getElementById('fb').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function qResult() {
+  const s = QS_.s; const Q = X.quiz[s]; const t = T(); const sc = QS_.score; const tot = Q.q.length; const pass = sc >= Q.pass;
+  const best = jget(QK, {}); if (!best[s] || sc > best[s]) { best[s] = sc; jset(QK, best); }
+  const nextS = X.seasons[s]; const wrongEps = [...new Set(QS_.wrong.map(i => Q.q[i].ep))];
+  let h = `<div class="quizbox"><div class="big ${pass ? 'ok' : ''}">${sc}<small>/${tot}</small></div><h2>${pass ? t.pass : t.fail}</h2><p>${t.score(sc, tot)}</p>`;
+  if (wrongEps.length) h += `<div class="review"><div class="xh">${t.review}</div>${wrongEps.map(e => `<a href="#ep-${e}">${U.ep(e)} · ${W.titles[e]}</a>`).join('')}</div>`;
+  if (pass) h += `<div class="certbox"><div class="xh">🎓 ${t.certT}</div><input id="cname" placeholder="${t.namePh}" value="${(localStorage.getItem(NAMEK) || '').replace(/"/g, '')}" maxlength="16"><button class="qbtn p" onclick="makeCert(${s},${sc},${tot})">${t.cert}</button><div id="certout"></div></div>`
+    + (nextS ? `<a class="qbtn p" href="#ep-${nextS.eps[0]}">${t.goNext(nextS.n)}</a>` : '');
+  else h += `<button class="qbtn p" onclick="renderQuiz(${s})">${t.retry}</button>`;
+  h += `<a class="qbtn link" href="#">${t.home}</a></div>`;
+  document.getElementById('qz').innerHTML = h; window.scrollTo(0, 0);
+}
+async function makeCert(s, sc, tot) {
+  const t = T(); const name = (document.getElementById('cname').value || '').trim(); localStorage.setItem(NAMEK, name);
+  const st = X.seasons[s - 1][LANG] || X.seasons[s - 1].ko;
+  const c = document.createElement('canvas'); c.width = 1080; c.height = 1350; const g = c.getContext('2d');
+  try { await document.fonts.ready; } catch (e) {}
+  const F = (w, z) => `${w} ${z}px Pretendard, 'Apple SD Gothic Neo', sans-serif`;
+  g.fillStyle = '#1F2A44'; g.fillRect(0, 0, 1080, 1350);
+  g.strokeStyle = '#C9A45C'; g.lineWidth = 6; g.strokeRect(50, 50, 980, 1250); g.lineWidth = 2; g.strokeRect(70, 70, 940, 1210);
+  const img = new Image(); img.src = 'ep12_together.jpg';
+  await new Promise(r => { img.onload = r; img.onerror = r; });
+  if (img.naturalWidth) { g.save(); g.beginPath(); g.arc(540, 420, 190, 0, Math.PI * 2); g.clip(); g.drawImage(img, 540 - 240, 420 - 300, 480, 600); g.restore(); g.strokeStyle = '#C9A45C'; g.lineWidth = 6; g.beginPath(); g.arc(540, 420, 190, 0, Math.PI * 2); g.stroke(); }
+  g.textAlign = 'center'; g.fillStyle = '#C9A45C'; g.font = F(700, 34); g.fillText(LANG === 'en' ? 'BETHANY WAY, METHODIST WAY' : '베다니다움 감리교다움', 540, 160);
+  g.fillStyle = '#fff'; g.font = F(800, 74); g.fillText(t.certLine(s), 540, 720);
+  g.fillStyle = '#E9DDBE'; g.font = F(600, 40); g.fillText(st.title, 540, 790);
+  g.fillStyle = '#fff'; g.font = F(800, 88); g.fillText(name || (LANG === 'en' ? 'Bethany Friend' : '베다니 가족'), 540, 950);
+  g.fillStyle = '#C9A45C'; g.fillRect(340, 985, 400, 3);
+  g.fillStyle = '#E9DDBE'; g.font = F(500, 36); g.fillText(t.score(sc, tot), 540, 1060);
+  const d = new Date(); g.font = F(500, 30); g.fillText(LANG === 'en' ? d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`, 540, 1110);
+  g.fillStyle = '#fff'; g.font = F(700, 34); g.fillText(LANG === 'en' ? 'Bethany Korean United Methodist Church' : '베다니 한인연합감리교회', 540, 1220);
+  const url = c.toDataURL('image/png');
+  const out = document.getElementById('certout');
+  out.innerHTML = `<img src="${url}" alt="" class="certimg"><button class="qbtn p" id="certsave">${t.save}</button>`;
+  document.getElementById('certsave').onclick = async () => {
+    try { const blob = await (await fetch(url)).blob(); const file = new File([blob], `bethany-season${s}.png`, { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: t.certLine(s) }); return; } } catch (e) {}
+    const a = document.createElement('a'); a.href = url; a.download = `bethany-season${s}.png`; a.click();
+  };
+}
+
 function route() {
   window.onscroll = null;
-  const m = location.hash.match(/^#ep-(\d+)/);
-  if (m) renderEp(+m[1]); else renderHome();
+  const m = location.hash.match(/^#ep-(\d+)/), q = location.hash.match(/^#quiz-(\d+)/), l = location.hash.match(/^#lock-(\d+)-(\d+)/);
+  if (m) renderEp(+m[1]); else if (q) renderQuiz(+q[1]); else if (l) renderLock(+l[1], +l[2]); else renderHome();
 }
 buildLang();
 window.addEventListener('hashchange', route);
