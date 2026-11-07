@@ -230,14 +230,21 @@ button.right{border-color:#3E9B4F!important;background:#EAF6EC!important}button.
 #fnext{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,140%);z-index:20;background:#1F2A44;color:#fff;border-radius:999px;padding:13px 22px;font-size:15px;font-weight:800;box-shadow:0 8px 24px rgba(31,42,68,.28);transition:transform .25s;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
 #fnext.show{transform:translate(-50%,0)}
 .capture #prog,.capture #fnext{display:none}
+.pbtnwrap{padding:4px 20px 0}.pbtn{width:100%;padding:12px;border-radius:12px;border:1.5px dashed #C9A45C;background:#FBF6EA;color:#80601D;font:inherit;font-size:14px;font-weight:800;cursor:pointer}
+.qbtn.ghost{background:#fff;border:1.5px solid #D9C9A3;color:#1F2A44;font-size:15px}
+.pastebox{margin-top:16px;text-align:left;background:#fff;border:1px solid #E4DAC4;border-radius:16px;padding:14px 16px}.pastebox .xh{font-size:13px;font-weight:800;color:#80601D}
+.pastebox input{width:100%;margin-top:8px;padding:12px;border-radius:10px;border:1.5px solid #D9C9A3;font:inherit;font-size:14px}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translate(-50%,30px);opacity:0;z-index:40;background:#1F2A44;color:#fff;border-radius:999px;padding:12px 20px;font-size:14.5px;font-weight:700;transition:.25s;pointer-events:none;max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.capture .pbtnwrap{display:none}
 </style>
 </head>
 <body>
 <div id="prog"></div><a id="fnext" href="#" style="display:none"></a>
 <div class="app wrap" id="app"></div>
-<script src="data.js?v=202611072247"></script>
-<script src="data_en.js?v=202611072247"></script>
-<script src="season.js?v=202611072247"></script>
+<script src="data.js?v=202611072357"></script>
+<script src="data_en.js?v=202611072357"></script>
+<script src="season.js?v=202611072357"></script>
 <script>
 const K = window.WEBTOON, EN = window.WEBTOON_EN;
 const QS = new URLSearchParams(location.search);
@@ -294,7 +301,7 @@ function renderHome() {
     <div class="chips">${W.starter.map(n => ready(n)
       ? `<a class="chip" href="#ep-${n}"><div class="n">${U.ep(n)}</div><div class="q">${W.titles[n]}</div></a>`
       : `<div class="chip off"><div class="n">${U.ep(n)} · ${U.soon}</div><div class="q">${W.titles[n]}</div></div>`).join('')}</div>
-    <div class="sec"><h2>${U.tocH}</h2><div class="sub">${U.tocSub} · ${T().allSeasons}</div></div>`;
+    <div class="sec"><h2>${U.tocH}</h2><div class="sub">${U.tocSub} · ${T().allSeasons}</div></div><div class="pbtnwrap"><button class="pbtn" onclick="shareProgress()">${PTT().btn}</button></div>`;
   h += seasonTOC();
   h += `<div class="home-foot"><img src="logo.png" alt="Bethany Korean United Methodist Church"><p>${U.homeFoot}</p></div>`;
   app.innerHTML = h;
@@ -412,7 +419,10 @@ function renderLock(s, k) {
   const t = T(); document.title = t.quiz(s - 1);
   app.innerHTML = `<div class="bar" id="bar"><a class="btn" href="#">${U.back}</a><div class="t">${t.season(s)}</div><div class="rt"></div></div>
     <div class="quizbox"><div class="qimg"><img src="ep12_together.jpg" alt=""></div><h2>${t.lockH}</h2><p class="pre">${t.lockP(s - 1)}</p>
-    <a class="qbtn p" href="#quiz-${s - 1}">${t.takeQuiz}</a><button class="qbtn link" onclick="skipSeason(${s},${k})">${t.skip}</button></div>`;
+    <a class="qbtn p" href="#quiz-${s - 1}">${t.takeQuiz}</a>
+    <label class="qbtn ghost">${PTT().cardBtn}<input type="file" accept="image/*" hidden onchange="unlockByCard(this,${s},${k})"></label>
+    <div class="pastebox"><div class="xh">${PTT().pasteH}</div><p class="hint">${PTT().hint}</p><input id="plink" placeholder="${PTT().pastePh}"><button class="qbtn ghost" onclick="pasteProgress('#ep-${k}')">${PTT().pasteGo}</button></div>
+    <button class="qbtn link" onclick="skipSeason(${s},${k})">${t.skip}</button></div>`;
   window.scrollTo(0, 0);
 }
 function skipSeason(s, k) { const sk = jget(SKIPK, {}); sk[s] = true; jset(SKIPK, sk); location.hash = '#ep-' + k; }
@@ -433,7 +443,7 @@ function qNext() {
   const t = T(); const it = Q.q[QS_.i]; const L = it[LANG] || it.ko;
   let body = '';
   if (it.type === 'ox') body = `<div class="ox"><button onclick="qAns(true)">${t.o}</button><button onclick="qAns(false)">${t.x}</button></div>`;
-  else if (it.type === 'mc') body = `<div class="mc">${L.o.map((o, k) => `<button onclick="qAns(${k})"><b>${k + 1}</b>${o}</button>`).join('')}</div>`;
+  else if (it.type === 'mc') { QS_.mcp = it.fixed ? L.o.map((o, k) => k) : shuffle(L.o.map((o, k) => k)); body = `<div class="mc">${QS_.mcp.map((k, j) => `<button data-k="${k}" onclick="qAns(${k})"><b>${j + 1}</b>${L.o[k]}</button>`).join('')}</div>`; }
   else if (it.type === 'order') { QS_.ord = shuffle(L.o.map((o, k) => k)); body = `<p class="hint">${t.orderHint}</p><div class="ord" id="ord">${QS_.ord.map(k => `<button data-k="${k}" onclick="qOrd(${k},this)">${L.o[k]}<i></i></button>`).join('')}</div><button class="qbtn p" id="ordok" disabled onclick="qAns('order')">${t.check}</button>`; }
   document.getElementById('qz').innerHTML = `<div class="quizbox q"><div class="qprog"><span style="width:${(QS_.i / Q.q.length * 100).toFixed(0)}%"></span></div><div class="qtag">${t.qof(QS_.i + 1, Q.q.length)}</div><h2>${L.q}</h2>${body}<div id="fb"></div></div>`;
   window.scrollTo(0, 0);
@@ -454,7 +464,7 @@ function qAns(v) {
   if (ok) QS_.score++; else QS_.wrong.push(QS_.i);
   document.querySelectorAll('.quizbox.q button').forEach(b => b.disabled = true);
   if (it.type === 'ox') { const bs = document.querySelectorAll('.ox button'); bs[it.a ? 0 : 1].classList.add('right'); if (!ok) bs[v ? 0 : 1].classList.add('bad'); }
-  if (it.type === 'mc') { const bs = document.querySelectorAll('.mc button'); bs[it.a].classList.add('right'); if (!ok) bs[v].classList.add('bad'); }
+  if (it.type === 'mc') { const bk = k => document.querySelector(`.mc button[data-k="${k}"]`); bk(it.a).classList.add('right'); if (!ok) bk(v).classList.add('bad'); }
   if (it.type === 'order') document.querySelectorAll('#ord button').forEach(b => b.classList.add(ok ? 'right' : 'bad'));
   const last = QS_.i === Q.q.length - 1;
   document.getElementById('fb').innerHTML = `<div class="fb ${ok ? 'ok' : 'no'}"><div class="who">${ok ? t.host : t.dad}</div><div class="say">${ok ? t.right[QS_.i % t.right.length] : t.wrong}</div><p>${L.ex}</p><a href="#ep-${it.ep}" class="epl">${t.readMore} ${t.inEp(it.ep)}</a></div><button class="qbtn p" onclick="qNext()">${last ? t.result : t.next}</button>`;
@@ -467,7 +477,7 @@ function qResult() {
   let h = `<div class="quizbox"><div class="big ${pass ? 'ok' : ''}">${sc}<small>/${tot}</small></div><h2>${pass ? t.pass : t.fail}</h2><p>${t.score(sc, tot)}</p>`;
   if (wrongEps.length) h += `<div class="review"><div class="xh">${t.review}</div>${wrongEps.map(e => `<a href="#ep-${e}">${U.ep(e)} · ${W.titles[e]}</a>`).join('')}</div>`;
   if (pass) h += `<div class="certbox"><div class="xh">🎓 ${t.certT}</div><input id="cname" placeholder="${t.namePh}" value="${(localStorage.getItem(NAMEK) || '').replace(/"/g, '')}" maxlength="16"><button class="qbtn p" onclick="makeCert(${s},${sc},${tot})">${t.cert}</button><div id="certout"></div></div>`
-    + (nextS ? `<a class="qbtn p" href="#ep-${nextS.eps[0]}">${t.goNext(nextS.n)}</a>` : '');
+    + (nextS ? `<a class="qbtn p" href="#ep-${nextS.eps[0]}">${t.goNext(nextS.n)}</a>` : '') + `<button class="qbtn ghost" onclick="shareProgress()">${PTT().btn}</button>`;
   else h += `<button class="qbtn p" onclick="renderQuiz(${s})">${t.retry}</button>`;
   h += `<a class="qbtn link" href="#">${t.home}</a></div>`;
   document.getElementById('qz').innerHTML = h; window.scrollTo(0, 0);
@@ -491,13 +501,15 @@ async function makeCert(s, sc, tot) {
   g.fillStyle = '#E9DDBE'; g.font = F(500, 36); g.fillText(t.score(sc, tot), 540, 1060);
   const d = new Date(); g.font = F(500, 30); g.fillText(LANG === 'en' ? d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`, 540, 1110);
   g.fillStyle = '#fff'; g.font = F(700, 34); g.fillText(LANG === 'en' ? 'Bethany Korean United Methodist Church' : '베다니 한인연합감리교회', 540, 1220);
-  const url = c.toDataURL('image/png');
+  const tag = certTag(s, sc); g.textAlign = 'right'; g.fillStyle = 'rgba(233,221,190,.55)'; g.font = F(500, 20); g.fillText(tag, 1000, 1282);
+  let url = c.toDataURL('image/png');
+  try { const u8 = pngAddText(b64d(url.split(',')[1].replace(/\+/g, '-').replace(/\//g, '_')), 'bwt', tag); let bin = ''; for (let i = 0; i < u8.length; i += 32768) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 32768)); url = 'data:image/png;base64,' + btoa(bin); } catch (e) {}
   const out = document.getElementById('certout');
   out.innerHTML = `<img src="${url}" alt="" class="certimg"><button class="qbtn p" id="certsave">${t.save}</button>`;
   document.getElementById('certsave').onclick = async () => {
-    try { const blob = await (await fetch(url)).blob(); const file = new File([blob], `bethany-season${s}.png`, { type: 'image/png' });
+    try { const blob = await (await fetch(url)).blob(); const file = new File([blob], `bethany-season${s}-${tag}.png`, { type: 'image/png' });
       if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: t.certLine(s) }); return; } } catch (e) {}
-    const a = document.createElement('a'); a.href = url; a.download = `bethany-season${s}.png`; a.click();
+    const a = document.createElement('a'); a.href = url; a.download = `bethany-season${s}-${tag}.png`; a.click();
   };
 }
 
@@ -516,11 +528,81 @@ function fitBubbles() {
   });
 }
 window.addEventListener('resize', () => { if (location.hash.startsWith('#ep-')) fitBubbles(); });
+
+// ===== 내 진도 링크 · 수료 카드로 열기 (서버 없이 동작) =====
+const PT = {
+  ko: { btn: '🔗 내 진도 링크 복사·공유', copied: '진도 링크를 복사했어요. 카톡 ‘나와의 채팅’에 붙여 두면 다른 폰에서도 이어 볼 수 있어요.', shareT: '베다니 웹툰 내 진도', loaded: '진도를 불러왔어요', bad: '진도 링크를 읽지 못했어요. 주소 전체를 붙여 넣어 주세요.',
+    cardBtn: '🎓 이미 수료하셨나요? 수료 카드로 열기', cardFail: '수료 카드 확인이 어려우면 퀴즈를 다시 풀거나 ‘그냥 볼게요’를 눌러 주세요.', cardOk: n => `시즌 ${n} 수료 카드를 확인했어요`, pasteH: '진도 링크 붙여넣기', pastePh: 'https://bethanytoon.churchhistory.kr/?p=…', pasteGo: '불러오기', hint: '다른 폰에서 받은 진도 링크가 있으면 붙여 넣으세요.' },
+  en: { btn: '🔗 Copy / share my progress link', copied: 'Progress link copied. Paste it into a chat with yourself to continue on another phone.', shareT: 'My Bethany Webtoon progress', loaded: 'Progress loaded', bad: 'Couldn\'t read that link. Please paste the whole address.',
+    cardBtn: '🎓 Already completed? Unlock with your card', cardFail: 'If your card can\'t be verified, retake the quiz or tap “Just let me read.”', cardOk: n => `Season ${n} card verified`, pasteH: 'Paste a progress link', pastePh: 'https://bethanytoon.churchhistory.kr/?p=…', pasteGo: 'Load', hint: 'If you have a progress link from another phone, paste it here.' },
+};
+const PTT = () => PT[LANG] || PT.ko;
+const b64e = u8 => btoa(String.fromCharCode(...u8)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const b64d = str => { str = str.replace(/-/g, '+').replace(/_/g, '/'); while (str.length % 4) str += '='; return Uint8Array.from(atob(str), c => c.charCodeAt(0)); };
+function encodeProgress() {
+  const rd = jget(READK, []); const bm = new Uint8Array(8); rd.forEach(n => { if (n >= 1 && n <= 64) bm[(n - 1) >> 3] |= 1 << ((n - 1) & 7); });
+  const sk = Object.keys(jget(SKIPK, {})).filter(k => jget(SKIPK, {})[k]).map(Number);
+  const o = { v: 1, q: jget(QK, {}), s: sk, r: b64e(bm), l: +localStorage.getItem(lastKey) || 0, n: localStorage.getItem(NAMEK) || '', g: LANG };
+  return b64e(new TextEncoder().encode(JSON.stringify(o)));
+}
+function mergeProgress(code) {
+  const o = JSON.parse(new TextDecoder().decode(b64d(code))); if (!o || o.v !== 1) throw new Error('bad');
+  const q = jget(QK, {}); for (const k in (o.q || {})) q[k] = Math.max(q[k] || 0, +o.q[k] || 0); jset(QK, q);
+  const sk = jget(SKIPK, {}); (o.s || []).forEach(k => { sk[k] = true; }); jset(SKIPK, sk);
+  const rd = new Set(jget(READK, [])); if (o.r) { const bm = b64d(o.r); for (let n = 1; n <= 64; n++) if (bm[(n - 1) >> 3] & (1 << ((n - 1) & 7))) rd.add(n); } jset(READK, [...rd].sort((a, b) => a - b));
+  if (o.l && !(+localStorage.getItem(lastKey))) localStorage.setItem(lastKey, o.l); else if (o.l) localStorage.setItem(lastKey, Math.max(o.l, +localStorage.getItem(lastKey)));
+  if (o.n && !localStorage.getItem(NAMEK)) localStorage.setItem(NAMEK, o.n);
+  if ((o.g === 'en' || o.g === 'ko') && !QS.get('lang')) { LANG = o.g; localStorage.setItem(langKey, LANG); }
+  return o;
+}
+function toast(msg) { let el = document.getElementById('toast'); if (!el) { el = document.createElement('div'); el.id = 'toast'; document.body.appendChild(el); } el.textContent = msg; el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 3200); }
+function restoreFromUrl() {
+  const hp = location.hash.match(/^#p=([\w-]+)/); const code = QS.get('p') || (hp && hp[1]); if (!code) return false;
+  let ok = false; try { mergeProgress(code); ok = true; } catch (e) {}
+  QS.delete('p'); history.replaceState(null, '', location.pathname + (QS.toString() ? '?' + QS : '') + (hp ? '' : location.hash));
+  setTimeout(() => toast(ok ? PTT().loaded : PTT().bad), 300); return ok;
+}
+async function shareProgress() {
+  const url = location.origin + location.pathname + '?p=' + encodeProgress(); const t = PTT();
+  try { if (navigator.share) { await navigator.share({ title: t.shareT, url }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+  try { await navigator.clipboard.writeText(url); alert(t.copied); } catch (e) { prompt(t.copied, url); }
+}
+function pasteProgress(go) {
+  const v = (document.getElementById('plink').value || '').trim(); const m = v.match(/[?&#]p=([\w-]+)/) || v.match(/^([\w-]{20,})$/);
+  try { if (!m) throw 0; mergeProgress(m[1]); toast(PTT().loaded); if (go) location.hash = go; else route(); } catch (e) { toast(PTT().bad); }
+}
+// 수료 카드: 오른쪽 아래 표시 글자 + PNG tEXt 청크(bwt)에 시즌 정보
+const certSum = str => { let h = 7; for (const ch of str) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return (h % 46656).toString(36).padStart(3, '0').toUpperCase(); };
+const certTag = (s, sc) => `BWT-S${s}-${sc}${certSum(`BWT|${s}|${sc}`)}`;
+function certTagOk(tag) { const m = /^BWT-S(\d)-(\d{1,2})([0-9A-Z]{3})$/.exec(tag || ''); if (!m) return 0; return certSum(`BWT|${m[1]}|${m[2]}`) === m[3] && +m[2] >= ((X.quiz[+m[1]] || {}).pass || 6) ? +m[1] : 0; }
+const CRC_T = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+const crc32 = u8 => { let c = 0xFFFFFFFF; for (const b of u8) c = CRC_T[(c ^ b) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+function pngAddText(u8, key, val) {
+  const data = new TextEncoder().encode(key + '\0' + val); const type = new TextEncoder().encode('tEXt');
+  const chunk = new Uint8Array(12 + data.length); const dv = new DataView(chunk.buffer);
+  dv.setUint32(0, data.length); chunk.set(type, 4); chunk.set(data, 8); const ci = new Uint8Array(4 + data.length); ci.set(type); ci.set(data, 4); dv.setUint32(8 + data.length, crc32(ci));
+  const iend = u8.length - 12; const out = new Uint8Array(u8.length + chunk.length); out.set(u8.subarray(0, iend)); out.set(chunk, iend); out.set(u8.subarray(iend), iend + chunk.length); return out;
+}
+function pngReadText(u8, key) {
+  if (u8.length < 16 || u8[1] !== 0x50) return null; const dv = new DataView(u8.buffer, u8.byteOffset); let i = 8;
+  while (i + 8 <= u8.length) { const len = dv.getUint32(i); const type = String.fromCharCode.apply(null, u8.subarray(i + 4, i + 8));
+    if (type === 'tEXt') { const d = new TextDecoder().decode(u8.subarray(i + 8, i + 8 + len)); const z = d.indexOf('\0'); if (d.slice(0, z) === key) return d.slice(z + 1); }
+    if (type === 'IEND') break; i += 12 + len; } return null;
+}
+async function unlockByCard(inp, s, k) {
+  const f = inp.files && inp.files[0]; if (!f) return; let cs = 0;
+  try { const u8 = new Uint8Array(await f.arrayBuffer()); cs = certTagOk(pngReadText(u8, 'bwt')); } catch (e) {}
+  if (!cs) { const m = /BWT-S\d-\d{1,2}[0-9A-Z]{3}/.exec(f.name || ''); if (m) cs = certTagOk(m[0]); }
+  if (cs && cs >= s - 1) { const q = jget(QK, {}); for (let j = 1; j <= cs; j++) q[j] = Math.max(q[j] || 0, (X.quiz[j] || {}).pass || 6); jset(QK, q); toast(PTT().cardOk(cs)); location.hash = '#ep-' + k; }
+  else toast(PTT().cardFail);
+  inp.value = '';
+}
 function route() {
   window.onscroll = null; { const pb = document.getElementById('prog'), fn = document.getElementById('fnext'); if (pb) pb.style.width = '0'; if (fn) { fn.classList.remove('show'); fn.style.display = 'none'; } }
   const m = location.hash.match(/^#ep-(\d+)/), q = location.hash.match(/^#quiz-(\d+)/), l = location.hash.match(/^#lock-(\d+)-(\d+)/);
   if (m) renderEp(+m[1]); else if (q) renderQuiz(+q[1]); else if (l) renderLock(+l[1], +l[2]); else renderHome();
 }
+restoreFromUrl();
 buildLang();
 window.addEventListener('hashchange', route);
 route();
